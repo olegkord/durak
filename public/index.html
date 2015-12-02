@@ -1,23 +1,30 @@
 <!DOCTYPE html>
-<html ng-app="durak">
+<html>
   <head>
     <meta charset="utf-8">
 
     <script type="text/javascript" src="/scripts/angular.js"></script>
     <script type="text/javascript" src="/scripts/underscore.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="/js/script.js"></script>
-    <script type="text/javascript" src="/js/loginController.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
 
-    <title></title>
+  <title></title>
+    <!-- <script type="text/javascript" src="/js/loginController.js"></script> -->
+    <!-- <script type="text/javascript" src="/js/gameController.js"></script> -->
+
   </head>
-  <body>
+  <body ng-app="durak">
+
     <div ng-controller="LoginCtrl as login">
-
-      <input type="text" ng-model="login.userName" value="" placeholder="User Name"></input>
-      <button type="button" ng-click="login.addPlayer()">Sign in to game</button>
-
+      TEST
     </div>
 
+    <div ng-controller="GameCtrl as game">
+      TEST2
+    </div>
+
+
+
   </body>
+
 </html>

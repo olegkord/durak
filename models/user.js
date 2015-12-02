@@ -1,6 +1,7 @@
 'use strict';
 
 let mongoose = require('mongoose');
+let Game = require('./game.js');
 //let bcrypt = require('bcrypt');
 
 let userSchema = new mongoose.Schema({
@@ -8,7 +9,7 @@ let userSchema = new mongoose.Schema({
   //password: String,
 
   games: [{
-    type: mongoose.Schema.Types.Mixed,
+    type: mongoose.Schema.ObjectId,
     ref: 'Game'
   }]
 });
