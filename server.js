@@ -16,6 +16,8 @@ app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
 
 let user = require('./controllers/users_controller');
+debugger;
+
 app.use('/users', user);
 
 io.on('connection', (client) => {
