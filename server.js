@@ -14,9 +14,9 @@ app.set('port', 3000);
 app.use(express.static('public'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
+app.use('/scripts', express.static(__dirname + '/node_modules/cards'))
 
 let user = require('./controllers/users_controller');
-debugger;
 
 app.use('/users', user);
 
