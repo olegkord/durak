@@ -1,6 +1,9 @@
 'use strict';
 console.log('script file loaded');
 
+let socket = io();
+let myUser = '';
+
 angular.module('durak', [])
   .controller('GameCtrl', GameCtrl)
 
@@ -18,4 +21,18 @@ function GameCtrl(){
 
 function LoginCtrl(){
   console.log('login');
+  let self = this;
+
+  this.showLoginForm = true;
+
+  this.addUser = function() {
+    console.log('adding user!');
+
+    self.userName = "";
+    self.showLoginForm = false;
+
+    socket.emit('user added', self.userName)
+  }
+
+
 };
