@@ -26,11 +26,8 @@ io.on('connection', (client) => {
     users.push(newUser);
 
     if (users.length === 2){
-      let newGame = new Game;
-      newGame.player1 = users[0];
-      newGame.player2 = users[1];
 
-      newGame.makeDeck();
+
     }
   })
 })

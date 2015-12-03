@@ -1,5 +1,6 @@
+'use strict';
 
-module.exports = function Deck() {
+function Deck() {
  //constructor for a deck of cards.
  //member variables:
  this.cards = [];
