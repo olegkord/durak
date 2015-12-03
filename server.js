@@ -16,12 +16,27 @@ app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
 app.use('/scripts', express.static(__dirname + '/node_modules/cards'))
 
-let user = require('./controllers/users_controller');
 
-app.use('/users', user);
+let User = require('./models/user');
+let users = [];
+
+let Game = require('./models/game');
 
 io.on('connection', (client) => {
   console.log('User has connected');
+  client.on('user added', (data) => {
+    let newUser = new User;
+    newUser.userName = data.userName;
+    users.push(newUser);
+
+    if (users.length === 2){
+      let newGame = new Game;
+      newGame.player1 = users[0];
+      newGame.player2 = users[1];
+
+      newGame.makeDeck();
+    }
+  })
 })
 
 

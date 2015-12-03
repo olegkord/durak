@@ -1,15 +1,12 @@
 'use strict';
 
-let Card = require('./modules/card.js');
 let Deck = require('./modules/deck.js');
-
-debugger;
 
 let mongoose = require('mongoose');
 
 
 let gameSchema = new mongoose.Schema({
-  gameDeck: [],
+  gameDeck: String,
   trumpSuit: String,
 
   player1: [{
@@ -27,11 +24,19 @@ let gameSchema = new mongoose.Schema({
 })
 
 gameSchema.methods.makeDeck = function() {
-  this.gameDeck.build();
-  this.gameDeck.shuffle();
+  console.log('building a deck for this game');
+
+  let newDeck = new Deck();
+  newDeck.build();
+  newDeck = newDeck.shuffle();
+
+  //store deck state by only storing cards!
+  console.log(JSON.stringify(newDeck.cards));
+
 }
 
 gameSchema.methods.deal = function() {
+  console.log('Dealing cards for the game');
   for (var i = 0; i < 6; i++){
     this.p1hand.push(this.gameDeck.cards.pop());
     this.p2hand.push(this.gameDeck.cards.pop());

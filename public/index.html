@@ -15,10 +15,17 @@
   </head>
   <body ng-app="durak">
 
-    <div ng-controller="LoginCtrl as login" ng-show="login.showLoginForm">
-      <input type="text" ng-model="login.userName" value="">
-      <button type="button" ng-click="login.addUser()">Login to Game!</button>
+    <div ng-controller="LoginCtrl as login">
+      <div ng-show="login.showLoginForm">
+        <input type="text" ng-model="login.userName" value="">
+        <button type="button" ng-click="login.addUser()">Login to Game!</button>
+      </div>
+
+      <div ng-show="login.showWaitScreen">
+        <h3>Waiting for second player to join...</h3>
+      </div>
     </div>
+
 
     <div ng-controller="GameCtrl as game">
       TEST2
