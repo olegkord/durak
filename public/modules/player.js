@@ -1,9 +1,7 @@
 'use strict';
 
 
-function Player(playerName, playerNumber){
+function Player(playerName){
   this.name = playerName;
-  this.number = playerNumber;
-
   this.hand = [];
 }

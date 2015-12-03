@@ -9,9 +9,18 @@ function Game(){
   this.player1 = {};
   this.player2 = {};
 
+  this.attacking = undefined;
+  this.defending = undefined;
+
+
+///Object functions
+
   this.start = funtion() {
     this.makeDeck();
     this.deal();
+
+    this.attacking = 0;
+    this.defending = 1;
   }
 
   this.makeDeck = function() {
@@ -33,6 +42,23 @@ function Game(){
       this.giveCard(this.player2);
     }
   }
+
+  this.nextTurn = function() {
+    if (this.attacking === 0){
+      this.attacking = 1;
+      this.defending = 0;
+    }
+    else {
+      this.attacking = 0;
+      this.defending = 1;
+    }
+  }
+
+  this.makeAttack = function($card){
+
+  }
+
+
 
 
 }
