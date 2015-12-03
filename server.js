@@ -16,11 +16,7 @@ app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
 app.use('/scripts', express.static(__dirname + '/node_modules/cards'))
 
-
-let User = require('./models/user');
-let users = [];
-
-let Game = require('./models/game');
+////SOCKET CONNECTION!
 
 io.on('connection', (client) => {
   console.log('User has connected');
