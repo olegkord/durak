@@ -9,6 +9,14 @@ angular.module('durak', [])
 
   .controller('LoginCtrl', LoginCtrl);
 
+function GameCtrl() {
+
+  hey();
+
+  function hey() {
+    console.log('hey game controller');
+  }
+}
 
 
 function LoginCtrl(){

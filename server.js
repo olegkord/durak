@@ -18,15 +18,17 @@ app.use('/scripts', express.static(__dirname + '/node_modules/cards'))
 
 ////SOCKET CONNECTION!
 
+let users = [];
+
 io.on('connection', (client) => {
   console.log('User has connected');
   client.on('user added', (data) => {
-    let newUser = new User;
+    let newUser = {};
     newUser.userName = data.userName;
     users.push(newUser);
 
     if (users.length === 2){
-
+      io.emit('two players', users)
 
     }
   })
