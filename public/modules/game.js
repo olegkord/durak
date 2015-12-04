@@ -61,6 +61,10 @@ function Game(){
     //expected input: jquery selector representing a card.
     //attacking player plays a card.
     //field must be empty OR have a card of the same number as this card.
+
+//Turn off defending player's click events here
+
+    /////
     let cardRank = parseInt($card.attr('data-value'));
     if (_.isEmpty(this.numOnField)|| _.contains(this.numOnField, cardRank)) {
       //if the field is empty OR has a card of the same number
@@ -72,21 +76,39 @@ function Game(){
       let cardSuit = $card.attr('class');
       cardSuit = _.last(cardSuit.split(' '));
 
+      $newField = this.generateNewField($card);
+
+      //new card is on the field to attack. The opponent must now defend.
+
+      this.makeDefend($card)
+
     }
     else {
+      //Turn off click events on attacking player's cards
+      alert('Card can\'t be played!');
+      //Prompt defending player to defend.
+      //pass in attacking card for validation of defence.
 
     }
   }
 
   this.makeDefend = function($card){
+    //turn off attacking player's click events here
 
+    
+
+    //get suit and value of card first
   }
   this.recover = function() {
 
     this.nextTurn();
   }
-
-
-
+  //helper functions not directly related to gameplay:
+  this.generateNewField($card){
+    let $newField = $('<div/>').addClass('player').addCLass('field').attr('id',this.numPairs.toString());
+    $('.player#center').append($newField);
+    $newField = $newField.children().eq(this.numPairs);
+    $newField = $newField.append($('<ul/>').addClass('hand').append($card.parent()));
+  }
 
 }
