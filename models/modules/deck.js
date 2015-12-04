@@ -1,6 +1,8 @@
 'use strict';
 
-function Deck() {
+let Card = require('./card.js');
+
+module.exports = function Deck() {
  //constructor for a deck of cards.
  //member variables:
  this.cards = [];
@@ -38,17 +40,17 @@ function Deck() {
              rank = i.toString();
          }
 
-         //Builds the cards using jquery based on the CSS for the cards.
-         //
-        //  var rankStr = 'rank-'+rank;
-        //  var suitsSym = '\n&'+suits[j]+';\n';
-        //  var cardOuter = $('<a/>').addClass('card').addClass(rankStr).addClass(suits[j]).attr('data-value',i);
-        //  cardOuter.append($('<span/>').addClass('rank').html(rank.toUpperCase()));
-        //  cardOuter.append($('<span/>').addClass(suits[j]).html(suitsSym));
-         //
-        //  var drawDeck = $('.deck#draw').append($('<li/>').html('<div class=\"card back\">*</div>'));
-         //
-        //  this.cards.push(new Card(suits[j],i,cardOuter));
+         Builds the cards using jquery based on the CSS for the cards.
+
+         var rankStr = 'rank-'+rank;
+         var suitsSym = '\n&'+suits[j]+';\n';
+         var cardOuter = $('<a/>').addClass('card').addClass(rankStr).addClass(suits[j]).attr('data-value',i);
+         cardOuter.append($('<span/>').addClass('rank').html(rank.toUpperCase()));
+         cardOuter.append($('<span/>').addClass(suits[j]).html(suitsSym));
+
+         var drawDeck = $('.deck#draw').append($('<li/>').html('<div class=\"card back\">*</div>'));
+
+         this.cards.push(new Card(suits[j],i,cardOuter));
         let myCard = new Card(suits[j], i);
 
         this.cards.push(new Card(suits[j], i));

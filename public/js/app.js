@@ -1,42 +1,24 @@
 'use strict';
+$(function() {
 console.log('script file loaded');
 
 let socket = io();
 let myUser = '';
 
-angular.module('durak', [])
-  .controller('GameCtrl', GameCtrl)
+$('#user-login').click( (event) => {
+  console.log('clicked login');
+  let userName = $('input').val();
+  socket.emit('user added', userName);
 
-  .controller('LoginCtrl', LoginCtrl);
+})
 
-function GameCtrl() {
+socket.on('two players', (players) => {
+  console.log('response received');
+  console.log(players);
+  $('.login').hide();
 
-  hey();
-
-  function hey() {
-    console.log('hey game controller');
-  }
-}
-
-
-function LoginCtrl(){
-  console.log('login');
-  let self = this;
-
-//SHOWS:
-  this.showLoginForm = true;
-  this.showWaitScreen = false;
+  
+})
 
 
-  this.addUser = function() {
-    console.log('adding user!');
-
-    socket.emit('user added', {userName: self.userName})
-    self.userName = "";
-    self.showLoginForm = false;
-    self.showWaitScreen = true;
-
-  }
-
-
-};
+});

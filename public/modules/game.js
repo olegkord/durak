@@ -17,11 +17,8 @@ function Game(){
 
 
 ///Object functions
-  this.render = function() {
-    //render the current state of both players:
 
-  }
-  this.start = function() {
+  this.start = funtion() {
     this.makeDeck();
     this.deal();
 
@@ -98,7 +95,7 @@ function Game(){
   this.makeDefend = function($card){
     //turn off attacking player's click events here
 
-
+    
 
     //get suit and value of card first
   }
@@ -107,7 +104,7 @@ function Game(){
     this.nextTurn();
   }
   //helper functions not directly related to gameplay:
-  this.generateNewField = function($card) {
+  this.generateNewField($card){
     let $newField = $('<div/>').addClass('player').addCLass('field').attr('id',this.numPairs.toString());
     $('.player#center').append($newField);
     $newField = $newField.children().eq(this.numPairs);

@@ -14,20 +14,23 @@ app.set('port', 3000);
 app.use(express.static('public'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
-app.use('/scripts', express.static(__dirname + '/node_modules/cards'))
 
 ////SOCKET CONNECTION!
 
 let users = [];
 
 io.on('connection', (client) => {
+
   console.log('User has connected');
   client.on('user added', (data) => {
+    console.log('Data received');
     let newUser = {};
-    newUser.userName = data.userName;
+    console.log(data);
+    newUser.userName = data;
     users.push(newUser);
 
     if (users.length === 2){
+
       io.emit('two players', users)
 
     }

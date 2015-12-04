@@ -13,7 +13,6 @@
     <script type="text/javascript" src="js/modules/player.js"></script>
     <script type="text/javascript" src="js/modules/game.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
-    <script type="text/javascript" src="/js/socket.js"></script>
 
     <link rel="stylesheet" href = "style/normalize.css">
     <link rel="stylesheet" href = "style/cards.css">
@@ -23,42 +22,48 @@
 
 
   </head>
-  <body ng-app="durak">
+  <body>
 
-    <div ng-controller="LoginCtrl as login">
+    <!-- <div class="login" ng-controller="LoginCtrl as login">
       <div ng-show="login.showLoginForm">
         <input type="text" ng-model="login.userName" value="">
         <button type="button" ng-click="login.addUser()">Login to Game!</button>
       </div>
 
       <div ng-show="login.showWaitScreen">
-        <h3>Waiting for second player to join...</h3>
+        <span ng-bind="login.waitText"></span>
       </div>
+    </div> -->
+
+    <div class="login">
+      <form class="login-form">
+        <input type="text" value="">
+        <button type="button" id="user-login">Log in</button>
+      </form>
     </div>
 
 
-    <div ng-controller="GameCtrl as game">
-      <div class="playingCards simpleCards" id="table">
-        <div class="player" id="two">
-          <ul class="table">
+    <div class="playingCards simpleCards board" id="table">
+      <div class="player" id="two">
+        <ul class="table">
 
-          </ul>
-        </div>
-          <ul class="deck" id="draw"></ul>
-
-        <div class="player" id="field">
-          <ul class="hand"></ul>
-        </div>
-
-        <div class="player" id="one">
-          <ul class="table">
-          </ul>
-        </div>
-          <ul class="deck" id="discard">
-            <li></li>
-          </ul>
+        </ul>
       </div>
+        <ul class="deck" id="draw"></ul>
+
+      <div class="player" id="field">
+        <ul class="hand"></ul>
+      </div>
+
+      <div class="player" id="one">
+        <ul class="table">
+        </ul>
+      </div>
+        <ul class="deck" id="discard">
+          <li></li>
+        </ul>
     </div>
+
     <footer></footer>
   </body>
 </html>
