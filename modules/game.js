@@ -54,7 +54,7 @@ module.exports = function Game(player1Name,player2Name){
 
   this.deal = function() {
     //deal cards to players.
-    for (var i = 0; i< 6; i++){
+    for (let i = 0; i< 6; i++){
       this.giveCard(this.player1);
       this.giveCard(this.player2);
     }

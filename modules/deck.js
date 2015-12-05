@@ -4,7 +4,7 @@ let Card = require('./card');
 
 module.exports = function Deck() {
  //constructor for a deck of cards.
- //member variables:
+ //member letiables:
  this.cards = [];
 
  //member functions:
@@ -13,15 +13,15 @@ module.exports = function Deck() {
    //shuffle function taken from memory game.
    console.log('shuffling');
 
-   for(var j, x, i = this.cards.length; i; j = Math.floor(Math.random() * i), x = this.cards[--i], this.cards[i] = this.cards[j], this.cards[j] = x);
+   for(let j, x, i = this.cards.length; i; j = Math.floor(Math.random() * i), x = this.cards[--i], this.cards[i] = this.cards[j], this.cards[j] = x);
  }
  this.build = function(){
    //This function will populate the deck with cards.
    console.log('building deck');
    let rank = '';
    let suits = ['diams','hearts','spades','clubs'];
-   for (var j=0; j < suits.length; j++) {
-     for (var i=6; i < 15; i++){
+   for (let j=0; j < suits.length; j++) {
+     for (let i=6; i < 15; i++){
          switch(i) {
            case 11 :
              rank = 'j';
@@ -38,9 +38,14 @@ module.exports = function Deck() {
            default :
              rank = i.toString();
         }
-        let myCard = new Card(suits[j], i);
+        //create the DOM object required to visually represent a card in the browser:
 
-        this.cards.push(new Card(suits[j], i));
+        let rankStr = 'rank-'+rank;
+        let suitsSym = '\n&'+suits[j]+';\n';
+
+        let myCard = new Card(suits[j], i, rankStr, suitsSym);
+
+        this.cards.push(myCard);
        }
      }
    }
