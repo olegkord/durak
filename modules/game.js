@@ -1,44 +1,55 @@
 'use strict';
 
-function Game(){
+let Deck = require('./deck');
+
+module.exports = function Game(player1Name,player2Name){
   //constructor function for a new game object.
 
-  this.deck = undefined;
-  this.trump = undefined;
+  this.deck = new Deck;
+  this.trump = '';
 
   this.numOnField = [];
   this.numPairs = 0;
 
-  this.player1 = {};
-  this.player2 = {};
+  this.player1 = {
+    name: player1Name,
+    hand: []
+  };
+  this.player2 = {
+    name: player2Name,
+    hand: []
+  };
 
-  this.attacking = undefined;
-  this.defending = undefined;
-
+  this.attacking = 0;
+  this.defending = 1;
 
 ///Object functions
-  this.render = function() {
-    //render the current state of both players:
-
+  this.state = function() {
+    return {
+      deck: this.deck,
+      trump: this.trump,
+      numOnField: this.numOnField,
+      numPairs: this.numPairs,
+      player1: this.player1,
+      player2: this.player2,
+      attacking: this.attacking,
+      defending: this.defending
+    }
   }
   this.start = function() {
     this.makeDeck();
     this.deal();
-
-    this.attacking = 0;
-    this.defending = 1;
   }
 
   this.makeDeck = function() {
     //start a game: build the deck and shuffle
-    let myDeck = new Deck();
-    myDeck = myDeck.build();
-    myDeck = myDeck.shuffle();
+    this.deck.build();
+    this.deck.shuffle();
   }
 
   this.giveCard = function(player) {
     //expected input: player object
-    player.hand.push(this.deck.pop);
+    player.hand.push(this.deck.cards.pop());
   }
 
   this.deal = function() {
@@ -47,6 +58,9 @@ function Game(){
       this.giveCard(this.player1);
       this.giveCard(this.player2);
     }
+
+    this.trump = this.deck.cards[this.deck.cards.length-1].suit;
+    this.deck.cards.push(this.deck.cards.pop());
   }
 
   this.nextTurn = function() {

@@ -15,6 +15,12 @@ app.use(express.static('public'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
 
+//// Require game modules to be hosted on back end
+
+  let Game = require('./modules/game.js');
+
+
+////
 ////SOCKET CONNECTION!
 
 let users = [];
@@ -30,8 +36,13 @@ io.on('connection', (client) => {
     users.push(newUser);
 
     if (users.length === 2){
+      //two users are now present, let's build a new game and export the state to the users.
+      console.log('creating a new game');
+      let game = new Game(users[0].userName,users[1].userName);
+      game.start();
 
-      io.emit('two players', users)
+      io.emit('two players', game.state())
+
 
     }
   })

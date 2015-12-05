@@ -12,9 +12,8 @@ $('#user-login').click( (event) => {
   socket.emit('user added', userName);
 })
 
-socket.on('two players', (players) => {
+socket.on('two players', (gameState) => {
   console.log('response received');
-  console.log(players);
   $('.login').hide();
   $('#your-user').html(myUser)
 

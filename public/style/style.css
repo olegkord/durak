@@ -11,9 +11,10 @@ footer {
   height: 200px;
 }
 .container {
-  width: 1000px;
+  width: 90%;
   height: 450px;
   border: 2px solid black;
+  min-width: 500px;
 }
 
 .sidebar-left {
@@ -21,7 +22,7 @@ footer {
 
   height: 450px;
   padding: 0px;
-  width: 180px;
+  width: 18%;
   float: left;
 }
 .login {
@@ -34,6 +35,14 @@ footer {
 
 .login-form {
   padding-top: 40px;
+}
+
+.login-form input {
+  width: 80%;
+}
+
+.login-form button {
+  width: 80%;
 }
 
 /*.sidebar {
@@ -74,7 +83,7 @@ footer {
 #table {
   background-color: lightgreen;
   height: 450px;
-  width: 800px;
+  width: 80%;
   margin-left: 30px;
   border: solid black 2px;
   margin: 0px;
