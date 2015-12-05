@@ -10,10 +10,22 @@ button {
 footer {
   height: 200px;
 }
+.container {
+  width: 1000px;
+  height: 450px;
+  border: 2px solid black;
+}
 
+.sidebar-left {
+  border: solid black 2px;
+
+  height: 450px;
+  padding: 0px;
+  width: 180px;
+  float: left;
+}
 .login {
-  width: 250px;
-  height: 250px;
+
   margin: auto;
   border: solid black 2px;
   border-radius: 5px;
@@ -21,19 +33,19 @@ footer {
 }
 
 .login-form {
-  padding-top: 80px;
+  padding-top: 40px;
 }
 
-.sidebar {
+/*.sidebar {
   width: 150px;
   height:599px;
   float: left;
-}
-.container {
+}*/
+/*.container {
   height: 600px;
   width: 1000px;
   float: right;
-}
+}*/
 
 .player {
   height: 30px;
@@ -61,10 +73,12 @@ footer {
 
 #table {
   background-color: lightgreen;
-  height: 750px;
-  width: 1200px;
+  height: 450px;
+  width: 800px;
   margin-left: 30px;
-  /*min-width: 600px;*/
+  border: solid black 2px;
+  margin: 0px;
+  float: right;
 }
 
 #discard {
