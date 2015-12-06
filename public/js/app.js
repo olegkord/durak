@@ -29,6 +29,7 @@ function renderGame(gameObject) {
   //Build players' hands with Jquery cards:
   gameObject.player1.hand = createCards(gameObject.player1.hand);
   gameObject.player2.hand = createCards(gameObject.player2.hand);
+  gameObject.players = [gameObject.player1, gameObject.player2];
   //find if you are player one or player 2
   renderPlayers(myUser, gameObject);
 
@@ -42,12 +43,27 @@ function allowAttack(userName, gameObj) {
   console.log('registering click events for attack');
   if (userName === gameObj.players[gameObj.attacking].name) {
     let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
-    for (var i = 0; i < $attackCards.length; i++) {
+    for (let i = 0; i < $attackCards.length; i++) {
       $attackCards.eq(i).click( (event) => {
-        console.log('clicked on a card!');
+        //Append jquery card representation and emit an event that a player attacked.
+        let attackingCard = gameObj.players[gameObj.attacking].hand[i];
+
+        appendAttackingCard(attackingCard, gameObj);
+
       })
     }
   }
+}
+
+function appendAttackingCard(card, gameObj) {
+  let $newField = $('.player#field')
+    .append($('<div/>')
+      .addClass('player')
+      .addClass('field')
+      .attr('id',gameObj.fieldCards.length.toString()));
+
+  $newField = $newField.children().eq(gameObj.fieldCards.length);
+  $newField = $newField.append($('<ul/>').addClass('hand').append(card.$card.parent()));
 }
 
 function updateCurrentPlayer(gameObj) {

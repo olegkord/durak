@@ -31,7 +31,7 @@ module.exports = function Game(player1Name,player2Name){
       deck: this.deck,
       trump: this.trump,
       numOnField: this.numOnField,
-      field: this.fieldCards,
+      fieldCards: this.fieldCards,
       players: [this.player1, this.player2],
       player1: this.player1,
       player2: this.player2,
