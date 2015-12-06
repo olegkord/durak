@@ -1,14 +1,16 @@
 header {
-  height: 200px;
+  height: 100px;
 }
 button {
   width: 120px;
   height: 20px;
   margin: 10px;
 }
-
+div {
+  border: solid 1px black;
+}
 footer {
-  height: 200px;
+  height: 100px;
 }
 .container {
   width: 90%;
@@ -19,14 +21,13 @@ footer {
 
 .sidebar-left {
   border: solid black 2px;
-
   height: 450px;
   padding: 0px;
   width: 18%;
   float: left;
 }
-.login {
 
+.login {
   margin: auto;
   border: solid black 2px;
   border-radius: 5px;
@@ -45,16 +46,10 @@ footer {
   width: 80%;
 }
 
-/*.sidebar {
-  width: 150px;
-  height:599px;
-  float: left;
-}*/
-
 .player {
   height: 30px;
-  margin-bottom:200px;
-  width: 770px;
+  margin-bottom:175px;
+  width: 100%;
 }
 
 .field {
@@ -70,10 +65,10 @@ footer {
 }
 
 #draw{
-  margin-top: 180px;
-  margin-bottom: 180px;
+  margin: 0px;
   width: 20px;
   height:50px;
+  float: left;
 }
 
 #table {
