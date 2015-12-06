@@ -50,11 +50,6 @@ footer {
   height:599px;
   float: left;
 }*/
-/*.container {
-  height: 600px;
-  width: 1000px;
-  float: right;
-}*/
 
 .player {
   height: 30px;
@@ -68,6 +63,7 @@ footer {
   margin-right: 50px;
   margin-bottom: 0px;
 }
+
 .inner {
   float: right;
   margin-top: -700px;

@@ -24,13 +24,41 @@ socket.on('two players', (gameState) => {
 function renderGame(gameObject) {
   //renders the full game through a combination of subfunctions
   console.log('render game');
-  renderDeck(gameObject.deck)
+  renderDeck(gameObject.deck);
 
+  //Build players' hands with Jquery cards:
+  gameObject.player1.hand = createCards(gameObject.player1.hand);
+  gameObject.player2.hand = createCards(gameObject.player2.hand);
+  //find if you are player one or player 2
+  renderPlayers(myUser,gameObject);
 }
 
-function renderPlayer(playerName,gameObj) {
-  //renders a players hand as face up or face down depending on the current user
+function createCards(hand) {
+  hand.forEach( (card) => {
+    card.$card = $('<a/>').addClass('card').addClass(card.rankStr).addClass(card.suit).attr('data-value',card.number);
+    card.$card.append($('<span/>').addClass('rank').html(card.rank.toUpperCase()));
+    card.$card.append($('<span/>').addClass(card.suit).html(card.suitsSym));
+  });
+  return hand;
+}
 
+function renderPlayers(playerName,gameObj) {
+  //renders a players hand as face up or face down depending on the current user
+  if (playerName === gameObj.player1.name){
+    gameObj.player1.hand.forEach( (card) => {
+    $('#one > .table').append($('<li/>').append(card.$card))
+    $('#two > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+    });
+  }
+  else if (playerName === gameObj.player2.name) {
+    gameObj.player2.hand.forEach( (card) => {
+    $('#two > .table').append($('<li/>').append(card.$card))
+    $('#one > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+    });
+  }
+  else {
+    alert('Something went wrong with the player names!');
+  }
 }
 
 function renderField(fieldCards){
