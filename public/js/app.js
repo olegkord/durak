@@ -35,9 +35,10 @@ function renderGame(gameObject) {
 
 function createCards(hand) {
   hand.forEach( (card) => {
-    card.$card = $('<a/>').addClass('card').addClass(card.rankStr).addClass(card.suit).attr('data-value',card.number);
-    card.$card.append($('<span/>').addClass('rank').html(card.rank.toUpperCase()));
-    card.$card.append($('<span/>').addClass(card.suit).html(card.suitsSym));
+    card.$card = $('<a/>').addClass('card').addClass(card.rank).addClass(card.suit).attr('data-value',card.number);
+    let rank = card.rank.split('-')[1]
+    card.$card.append($('<span/>').addClass('rank').html(rank.toUpperCase()));
+    card.$card.append($('<span/>').addClass(card.suit).html(card.suitSym));
   });
   return hand;
 }
