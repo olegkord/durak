@@ -11,6 +11,7 @@ module.exports = function Game(player1Name,player2Name){
   this.numOnField = [];
   //This will be an array of arrays holding pairs of cards in the middle of the field.
   this.fieldCards = [];
+  this.players = []
 
   this.player1 = {
     name: player1Name,
@@ -31,6 +32,7 @@ module.exports = function Game(player1Name,player2Name){
       trump: this.trump,
       numOnField: this.numOnField,
       field: this.fieldCards,
+      players: [this.player1, this.player2],
       player1: this.player1,
       player2: this.player2,
       attacking: this.attacking,

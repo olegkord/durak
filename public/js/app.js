@@ -30,7 +30,14 @@ function renderGame(gameObject) {
   gameObject.player1.hand = createCards(gameObject.player1.hand);
   gameObject.player2.hand = createCards(gameObject.player2.hand);
   //find if you are player one or player 2
-  renderPlayers(myUser,gameObject);
+  renderPlayers(myUser, gameObject);
+
+  renderField(myUser, gameObject);
+  updateCurrentPlayer(gameObject);
+}
+function updateCurrentPlayer(gameObj) {
+  //updates the field with current player.
+  $('#current-player').html(gameObj.players[gameObj.attacking].name);
 }
 
 function createCards(hand) {
