@@ -34,7 +34,22 @@ function renderGame(gameObject) {
 
   renderField(myUser, gameObject);
   updateCurrentPlayer(gameObject);
+
+  allowAttack(myUser, gameObject);
 }
+function allowAttack(userName, gameObj) {
+  //allows for click events on the attacking player side.
+  console.log('registering click events for attack');
+  if (userName === gameObj.players[gameObj.attacking].name) {
+    let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
+    for (var i = 0; i < $attackCards.length; i++) {
+      $attackCards.eq(i).click( (event) => {
+        console.log('clicked on a card!');
+      })
+    }
+  }
+}
+
 function updateCurrentPlayer(gameObj) {
   //updates the field with current player.
   $('#current-player').html(gameObj.players[gameObj.attacking].name);
@@ -54,14 +69,14 @@ function renderPlayers(playerName,gameObj) {
   //renders a players hand as face up or face down depending on the current user
   if (playerName === gameObj.player1.name){
     gameObj.player1.hand.forEach( (card) => {
-    $('#one > .table').append($('<li/>').append(card.$card))
-    $('#two > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+    $('#1 > .table').append($('<li/>').append(card.$card))
+    $('#2 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
     });
   }
   else if (playerName === gameObj.player2.name) {
     gameObj.player2.hand.forEach( (card) => {
-    $('#two > .table').append($('<li/>').append(card.$card))
-    $('#one > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+    $('#2 > .table').append($('<li/>').append(card.$card))
+    $('#1 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
     });
   }
   else {
