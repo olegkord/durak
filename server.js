@@ -56,6 +56,20 @@ io.on('connection', (client) => {
     //update game state with the attack and return game state to front end.
     game.makeAttack(data);
     io.emit('player defend', game.state());
+  });
+
+  client.on('defend card', (data) => {
+    //vet the card that the player has chosen.
+    // if pass: send a signal to append the card in the field.
+    // if fail: send a signal to choose another card to defend with.
+    if (game.vetDefendCard(data)) {
+      //if the game rules allow for this card to be played.
+    }
+    else {
+      //if game rules do not allow for this card to be played.
+    }
+
+
   })
 })
 

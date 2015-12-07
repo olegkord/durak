@@ -82,7 +82,7 @@ module.exports = function Game(player1Name,player2Name){
     let handIndex = cardData.handIndex;
     let newPair = [];
     //remove card from player's hand and put into the field.
-    debugger;
+    
     newPair.push(this.players[this.attacking].hand.splice(handIndex,1));
 
     this.fieldCards.push(newPair);

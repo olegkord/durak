@@ -27,8 +27,14 @@ socket.on('player defend', (gameState) => {
   refresh();
   renderGame(gameState);
 
-  console.log('How do I rended these field cards now...');
-})
+  allowDefence(myUser, gameState);
+
+});
+
+
+///////////
+///FRONT END DOM FUNCTIONS BELOW:
+//////////
 
 function refresh() {
   //refreshes game before re-rendering it.
@@ -69,23 +75,47 @@ function allowAttack(userName, gameObj) {
         //Append jquery card representation and emit an event that a player attacked.
         let attackingCard = gameObj.players[gameObj.attacking].hand[i];
 
-        socket.emit('player attack', {
+        socket.emit('defend card', {
           attackingCard: attackingCard,
           handIndex: i
         });
 
         $attackCards.off();
+        //Do I allow the defence here or in another function????
       })
     }
   }
 }
 
+//Very similar to function above, can be abstracted.
+function allowDefence(userName, gameObj) {
+  //allows for click events on the defending player side.
+  //however the user must WAIT until an attack event has occured to defend.
+  console.log('registering click events for defence.');
+  if (userName === gameObj.players[gameObj.defending].name) {
+    let $defendingCards = $('#' + (gameObj.defending + 1) + '> ul > li');
+
+    for (let i = 0; i < $defendingCards.length; i++) {
+      $defendingCards.eq(i).click( (event) => {
+        //activate the defending player's cards for clicks.
+        let defendingCard = gameObj.players[gameObj.defending].hand[i];
+
+        socket.emit('player defend', {
+          defendingCard: defendingCard,
+          handIndex: i
+        });
+
+        $defendingCards.off();
+      });
+    }
+  }
+}
+
+
 function appendAttackingCard(card, index) {
   card = createJQcard(card);
   let $newField = $('.player#field').append($('<div/>').attr('id', index));
-
   $newField.append($('<ul/>').addClass('hand').append($('<li/>').append(card.$card)));
-
 }
 
 function updateCurrentPlayer(gameObj) {
