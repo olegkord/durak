@@ -21,49 +21,71 @@ socket.on('two players', (gameState) => {
 
 })
 
+socket.on('player defend', (gameState) => {
+  console.log('player must defend');
+
+  refresh();
+  renderGame(gameState);
+
+  console.log('How do I rended these field cards now...');
+})
+
+function refresh() {
+  //refreshes game before re-rendering it.
+  $('#2 > .table').children().remove();
+  $('#1 > .table').children().remove();
+  $('#field > .hand').children().remove();
+  $('#draw').children().remove();
+  $('#discard').children().remove();
+}
+
 function renderGame(gameObject) {
   //renders the full game through a combination of subfunctions
   console.log('render game');
   renderDeck(gameObject.deck);
 
   //Build players' hands with Jquery cards:
-  gameObject.player1.hand = createCards(gameObject.player1.hand);
-  gameObject.player2.hand = createCards(gameObject.player2.hand);
+  gameObject.player1.hand = createHandCards(gameObject.player1.hand);
+  gameObject.player2.hand = createHandCards(gameObject.player2.hand);
   gameObject.players = [gameObject.player1, gameObject.player2];
   //find if you are player one or player 2
-  renderPlayers(myUser, gameObject);
 
   renderField(myUser, gameObject);
+
+  renderPlayers(myUser, gameObject);
   updateCurrentPlayer(gameObject);
 
   allowAttack(myUser, gameObject);
 }
+
 function allowAttack(userName, gameObj) {
   //allows for click events on the attacking player side.
   console.log('registering click events for attack');
   if (userName === gameObj.players[gameObj.attacking].name) {
     let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
+
     for (let i = 0; i < $attackCards.length; i++) {
       $attackCards.eq(i).click( (event) => {
         //Append jquery card representation and emit an event that a player attacked.
         let attackingCard = gameObj.players[gameObj.attacking].hand[i];
 
-        appendAttackingCard(attackingCard, gameObj);
+        socket.emit('player attack', {
+          attackingCard: attackingCard,
+          handIndex: i
+        });
 
+        $attackCards.off();
       })
     }
   }
 }
 
-function appendAttackingCard(card, gameObj) {
-  let $newField = $('.player#field')
-    .append($('<div/>')
-      .addClass('player')
-      .addClass('field')
-      .attr('id',gameObj.fieldCards.length.toString()));
+function appendAttackingCard(card, index) {
+  card = createJQcard(card);
+  let $newField = $('.player#field').append($('<div/>').attr('id', index));
 
-  $newField = $newField.children().eq(gameObj.fieldCards.length);
-  $newField = $newField.append($('<ul/>').addClass('hand').append(card.$card.parent()));
+  $newField.append($('<ul/>').addClass('hand').append($('<li/>').append(card.$card)));
+
 }
 
 function updateCurrentPlayer(gameObj) {
@@ -71,28 +93,38 @@ function updateCurrentPlayer(gameObj) {
   $('#current-player').html(gameObj.players[gameObj.attacking].name);
 }
 
-function createCards(hand) {
+function createHandCards(hand) {
   hand.forEach( (card) => {
-    card.$card = $('<a/>').addClass('card').addClass(card.rank).addClass(card.suit).attr('data-value',card.number);
-    let rank = card.rank.split('-')[1]
-    card.$card.append($('<span/>').addClass('rank').html(rank.toUpperCase()));
-    card.$card.append($('<span/>').addClass(card.suit).html(card.suitSym));
+    card = createJQcard(card);
   });
   return hand;
+}
+
+function createJQcard(card) {
+  card.$card = $('<a/>').addClass('card').addClass(card.rank).addClass(card.suit).attr('data-value',card.number);
+  let rank = card.rank.split('-')[1]
+  card.$card.append($('<span/>').addClass('rank').html(rank.toUpperCase()));
+  card.$card.append($('<span/>').addClass(card.suit).html(card.suitSym));
+
+  return card;
 }
 
 function renderPlayers(playerName,gameObj) {
   //renders a players hand as face up or face down depending on the current user
   if (playerName === gameObj.player1.name){
     gameObj.player1.hand.forEach( (card) => {
-    $('#1 > .table').append($('<li/>').append(card.$card))
-    $('#2 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+      $('#1 > .table').append($('<li/>').append(card.$card))
+    });
+    gameObj.player2.hand.forEach( (card) => {
+      $('#2 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
     });
   }
   else if (playerName === gameObj.player2.name) {
     gameObj.player2.hand.forEach( (card) => {
-    $('#2 > .table').append($('<li/>').append(card.$card))
-    $('#1 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+      $('#2 > .table').append($('<li/>').append(card.$card))
+    });
+    gameObj.player1.hand.forEach( (card) => {
+      $('#1 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
     });
   }
   else {
@@ -100,8 +132,13 @@ function renderPlayers(playerName,gameObj) {
   }
 }
 
-function renderField(fieldCards){
+function renderField(playerName, gameObj){
   //renders the cards on the field following an update in game
+  console.log('rendering field cards');
+
+  $.each(gameObj.fieldCards, (index, pair) => {
+    appendAttackingCard(pair[0][0], index);
+  })
 }
 
 function renderDeck(deck){

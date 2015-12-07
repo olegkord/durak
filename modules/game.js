@@ -77,39 +77,16 @@ module.exports = function Game(player1Name,player2Name){
     }
   }
 
-  this.makeAttack = function($card){
-    //expected input: jquery selector representing a card.
-    //attacking player plays a card.
-    //field must be empty OR have a card of the same number as this card.
+  this.makeAttack = function(cardData){
+    //This function covers all requirements for an attack
+    let handIndex = cardData.handIndex;
+    let newPair = [];
+    //remove card from player's hand and put into the field.
+    debugger;
+    newPair.push(this.players[this.attacking].hand.splice(handIndex,1));
 
-//Turn off defending player's click events here
+    this.fieldCards.push(newPair);
 
-    /////
-    let cardRank = parseInt($card.attr('data-value'));
-    if (_.isEmpty(this.numOnField)|| _.contains(this.numOnField, cardRank)) {
-      //if the field is empty OR has a card of the same number
-
-      //add card to collection of cards.
-      this.numOnField.push(cardRank);
-
-      //create a new field to play on.
-      let cardSuit = $card.attr('class');
-      cardSuit = _.last(cardSuit.split(' '));
-
-      $newField = this.generateNewField($card);
-
-      //new card is on the field to attack. The opponent must now defend.
-
-      this.makeDefend($card)
-
-    }
-    else {
-      //Turn off click events on attacking player's cards
-      alert('Card can\'t be played!');
-      //Prompt defending player to defend.
-      //pass in attacking card for validation of defence.
-
-    }
   }
 
   this.makeDefend = function($card){

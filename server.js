@@ -17,13 +17,15 @@ app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
 
 //// Require game modules to be hosted on back end
 
-  let Game = require('./modules/game.js');
+let Game = require('./modules/game.js');
 
 
 ////
 ////SOCKET CONNECTION!
 
 let users = [];
+//one way to not make a game a global variable is to store it in mongoDB.
+let game = null;
 
 io.on('connection', (client) => {
 
@@ -38,13 +40,22 @@ io.on('connection', (client) => {
     if (users.length === 2){
       //two users are now present, let's build a new game and export the state to the users.
       console.log('creating a new game');
-      let game = new Game(users[0].userName,users[1].userName);
+
+//---> Global!!
+      game = new Game(users[0].userName,users[1].userName);
+      game.players = [game.player1, game.player2];
       game.start();
 
-      io.emit('two players', game.state())
-
-
+      io.emit('two players', game.state());
     }
+
+
+  });
+
+  client.on('player attack', (data) => {
+    //update game state with the attack and return game state to front end.
+    game.makeAttack(data);
+    io.emit('player defend', game.state());
   })
 })
 
