@@ -62,8 +62,10 @@ io.on('connection', (client) => {
     //vet the card that the player has chosen.
     // if pass: send a signal to append the card in the field.
     // if fail: send a signal to choose another card to defend with.
+    debugger;
     if (game.vetDefendCard(data)) {
       //if the game rules allow for this card to be played.
+      console.log('card approved!');
     }
     else {
       //if game rules do not allow for this card to be played.

@@ -76,16 +76,40 @@ module.exports = function Game(player1Name,player2Name){
       this.defending = 1;
     }
   }
+  this.vetAttackCard = function(cardData) {
+    //this function evaluates game rules to see if a given card can be played.
+    //returns TRUE or FALSE
 
+  }
   this.makeAttack = function(cardData){
     //This function covers all requirements for an attack
     let handIndex = cardData.handIndex;
     let newPair = [];
     //remove card from player's hand and put into the field.
-    
-    newPair.push(this.players[this.attacking].hand.splice(handIndex,1));
+    let attackingCard = this.players[this.attacking].hand.splice(handIndex,1);
+
+    newPair.push(attackingCard);
 
     this.fieldCards.push(newPair);
+    this.numOnField.push()
+
+  }
+  this.vetDefendCard = function(cardData) {
+    //This function applies game rules to allow or disallow a played defence card.
+    //return TRUE or FALSE
+    let handIndex = cardData.handIndex;
+    let numPairs = this.fieldCards.length;
+
+    let defendingCard = this.players[this.defending].hand.splice(handIndex,1);
+    let attackingCard = this.fieldCards[numpairs][0];
+
+    //define booleans for evaluating card.
+    let suitCheck = (defendingCard.suit === attackingCard.suit);
+    let valCheck  = ((defendingCard.number > attackingCard.number) || (defendingCard.suit === this.trump));
+
+    debugger;
+    //both booleans must be true.
+    return (suitCheck && valCheck);
 
   }
 

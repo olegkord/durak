@@ -27,6 +27,7 @@ socket.on('player defend', (gameState) => {
   refresh();
   renderGame(gameState);
 
+  disallowAttack(myUser, gameState);
   allowDefence(myUser, gameState);
 
 });
@@ -67,22 +68,36 @@ function renderGame(gameObject) {
 function allowAttack(userName, gameObj) {
   //allows for click events on the attacking player side.
   console.log('registering click events for attack');
+
+  let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
   if (userName === gameObj.players[gameObj.attacking].name) {
-    let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
+
 
     for (let i = 0; i < $attackCards.length; i++) {
       $attackCards.eq(i).click( (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
         //Append jquery card representation and emit an event that a player attacked.
         let attackingCard = gameObj.players[gameObj.attacking].hand[i];
 
-        socket.emit('defend card', {
+        socket.emit('player attack', {
           attackingCard: attackingCard,
           handIndex: i
         });
+      });
+    }
+  }
+}
 
-        $attackCards.off();
-        //Do I allow the defence here or in another function????
-      })
+function disallowAttack(userName, gameObj) {
+  //remove click events from all cards in hand.
+  console.log('deauthorize player from attacking while opponent defends.')
+  let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
+
+  if (userName === gameObj.players[gameObj.attacking].name) {
+    for (let i = 0; i < $attackCards.length; i++) {
+      $attackCards.eq(i).off();
     }
   }
 }
@@ -91,12 +106,15 @@ function allowAttack(userName, gameObj) {
 function allowDefence(userName, gameObj) {
   //allows for click events on the defending player side.
   //however the user must WAIT until an attack event has occured to defend.
+  let $defendingCards = $('#' + (gameObj.defending + 1) + '> ul > li');
   console.log('registering click events for defence.');
   if (userName === gameObj.players[gameObj.defending].name) {
-    let $defendingCards = $('#' + (gameObj.defending + 1) + '> ul > li');
 
     for (let i = 0; i < $defendingCards.length; i++) {
       $defendingCards.eq(i).click( (event) => {
+        console.log('Clicked on card ' + i);
+        event.preventDefault();
+        event.stopPropagation();
         //activate the defending player's cards for clicks.
         let defendingCard = gameObj.players[gameObj.defending].hand[i];
 
@@ -105,9 +123,12 @@ function allowDefence(userName, gameObj) {
           handIndex: i
         });
 
-        $defendingCards.off();
+        $defendingCards.eq(i).off();
       });
     }
+  }
+  else {
+    $defendingCards.off();
   }
 }
 
