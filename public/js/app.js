@@ -23,7 +23,7 @@ socket.on('two players', (gameState) => {
 
 socket.on('attack again', (gameState) => {
   console.log('You may attack again if you want');
-  
+
   refresh();
   renderGame(gameState);
 })
@@ -138,12 +138,17 @@ function allowDefence(userName, gameObj) {
 function appendAttackingCard(card, index) {
   console.log('appending attacking card');
   card = createJQcard(card);
-  let $newField = $('.player#field').append($('<div/>').addClass('player field').attr('id', index));
-  $newField.append($('<ul/>').addClass('hand').append($('<li/>').append(card.$card)));
+  let $newField = $('.player#field')
+  let $newPairDiv = $('<div>').addClass('player field').attr('id', index);
+  $newPairDiv.append($('<ul>').addClass('hand').append($('<li>').append(card.$card)));
+  $newField.append($newPairDiv);
 }
 
 function appendDefendingCard(card, index) {
   console.log('appending defending cards');
+  card = createJQcard(card[0]);
+  let $divTarget = $('.field#' + String(index) + '> .hand');
+  $divTarget.append($('<li>').append(card.$card));
 }
 
 function updateCurrentPlayer(gameObj) {
@@ -196,8 +201,9 @@ function renderField(playerName, gameObj){
   console.log('rendering field cards');
 
   $.each(gameObj.fieldCards, (index, pair) => {
-    appendAttackingCard(pair[0], index);
-    appendDefendingCard(pair[1], index);
+    console.log('actually rendering!!');
+    if (pair.length > 0)  appendAttackingCard(pair[0], index);
+    if (pair.length > 1)  appendDefendingCard(pair[1], index);
   });
 }
 
