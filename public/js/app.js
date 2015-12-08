@@ -21,6 +21,13 @@ socket.on('two players', (gameState) => {
 
 })
 
+socket.on('attack again', (gameState) => {
+  console.log('You may attack again if you want');
+  
+  refresh();
+  renderGame(gameState);
+})
+
 socket.on('player defend', (gameState) => {
   console.log('player must defend');
 
@@ -112,31 +119,31 @@ function allowDefence(userName, gameObj) {
 
     for (let i = 0; i < $defendingCards.length; i++) {
       $defendingCards.eq(i).click( (event) => {
-        console.log('Clicked on card ' + i);
+
         event.preventDefault();
         event.stopPropagation();
         //activate the defending player's cards for clicks.
         let defendingCard = gameObj.players[gameObj.defending].hand[i];
 
-        socket.emit('player defend', {
+        socket.emit('defend card', {
           defendingCard: defendingCard,
           handIndex: i
         });
-
-        $defendingCards.eq(i).off();
       });
     }
-  }
-  else {
-    $defendingCards.off();
   }
 }
 
 
 function appendAttackingCard(card, index) {
+  console.log('appending attacking card');
   card = createJQcard(card);
-  let $newField = $('.player#field').append($('<div/>').attr('id', index));
+  let $newField = $('.player#field').append($('<div/>').addClass('player field').attr('id', index));
   $newField.append($('<ul/>').addClass('hand').append($('<li/>').append(card.$card)));
+}
+
+function appendDefendingCard(card, index) {
+  console.log('appending defending cards');
 }
 
 function updateCurrentPlayer(gameObj) {
@@ -146,6 +153,7 @@ function updateCurrentPlayer(gameObj) {
 
 function createHandCards(hand) {
   hand.forEach( (card) => {
+    console.log('creating card for hand');
     card = createJQcard(card);
   });
   return hand;
@@ -188,8 +196,9 @@ function renderField(playerName, gameObj){
   console.log('rendering field cards');
 
   $.each(gameObj.fieldCards, (index, pair) => {
-    appendAttackingCard(pair[0][0], index);
-  })
+    appendAttackingCard(pair[0], index);
+    appendDefendingCard(pair[1], index);
+  });
 }
 
 function renderDeck(deck){

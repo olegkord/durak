@@ -76,11 +76,13 @@ module.exports = function Game(player1Name,player2Name){
       this.defending = 1;
     }
   }
+
   this.vetAttackCard = function(cardData) {
     //this function evaluates game rules to see if a given card can be played.
     //returns TRUE or FALSE
 
   }
+
   this.makeAttack = function(cardData){
     //This function covers all requirements for an attack
     let handIndex = cardData.handIndex;
@@ -88,48 +90,44 @@ module.exports = function Game(player1Name,player2Name){
     //remove card from player's hand and put into the field.
     let attackingCard = this.players[this.attacking].hand.splice(handIndex,1);
 
-    newPair.push(attackingCard);
+    newPair.push(attackingCard[0]);
 
     this.fieldCards.push(newPair);
-    this.numOnField.push()
-
+    this.numOnField.push(attackingCard[0].number)
   }
-  this.vetDefendCard = function(cardData) {
+
+  this.vetDefendCard = function(defendingCard) {
     //This function applies game rules to allow or disallow a played defence card.
     //return TRUE or FALSE
-    let handIndex = cardData.handIndex;
-    let numPairs = this.fieldCards.length;
 
-    let defendingCard = this.players[this.defending].hand.splice(handIndex,1);
-    let attackingCard = this.fieldCards[numpairs][0];
+    let numPairs = this.fieldCards.length-1;
+
+    let attackingCard = this.fieldCards[numPairs][0];
 
     //define booleans for evaluating card.
     let suitCheck = (defendingCard.suit === attackingCard.suit);
     let valCheck  = ((defendingCard.number > attackingCard.number) || (defendingCard.suit === this.trump));
 
-    debugger;
     //both booleans must be true.
     return (suitCheck && valCheck);
-
   }
 
-  this.makeDefend = function($card){
+  this.makeDefend = function(data){
     //turn off attacking player's click events here
+    let handIndex = data.handIndex;
 
+    //remove card from player's hand and put into the field.
+    let defendingCard = this.players[this.defending].hand.splice(handIndex,1);
+    let numPairs = this.fieldCards.length-1;
 
-
-    //get suit and value of card first
+    this.fieldCards[numPairs].push(defendingCard);
+    this.numOnField.push(defendingCard.number);
+    debugger;
   }
+
   this.recover = function() {
 
     this.nextTurn();
-  }
-  //helper functions not directly related to gameplay:
-  this.generateNewField = function($card) {
-    let $newField = $('<div/>').addClass('player').addCLass('field').attr('id',this.numPairs.toString());
-    $('.player#center').append($newField);
-    $newField = $newField.children().eq(this.numPairs);
-    $newField = $newField.append($('<ul/>').addClass('hand').append($card.parent()));
   }
 
 }
