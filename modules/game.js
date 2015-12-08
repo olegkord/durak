@@ -80,7 +80,6 @@ module.exports = function Game(player1Name,player2Name){
   this.vetAttackCard = function(attackingCard) {
     //this function evaluates game rules to see if a given card can be played.
     //returns TRUE or FALSE
-    debugger;
     let numCheck = this.numOnField.includes(attackingCard.number);
 
     //user can attack if the card's number is already on the field or if there are 0 cards on the field.
@@ -125,8 +124,8 @@ module.exports = function Game(player1Name,player2Name){
     let numPairs = this.fieldCards.length-1;
 
     this.fieldCards[numPairs].push(defendingCard);
-    this.numOnField.push(defendingCard.number);
-    debugger;
+    this.numOnField.push(defendingCard[0].number);
+
   }
 
   this.recover = function() {

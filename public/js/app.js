@@ -83,7 +83,20 @@ function allowAttack(userName, gameObj) {
   console.log('registering click events for attack');
 
   let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
+  let $endRoundButton = $('#end-round');
+
   if (userName === gameObj.players[gameObj.attacking].name) {
+
+    $endRoundButton.click( (event) => {
+        if (gameObj.numOnField.length != 0) {
+          console.log('Ending Current Round');
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        else {
+          alert('You can\'t end the turn right now!');
+        }
+    });
 
 
     for (let i = 0; i < $attackCards.length; i++) {
@@ -107,7 +120,8 @@ function disallowAttack(userName, gameObj) {
   //remove click events from all cards in hand.
   console.log('deauthorize player from attacking while opponent defends.')
   let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
-
+  let $endRoundButton = $('#end-round');
+  $endRoundButton.off();
   if (userName === gameObj.players[gameObj.attacking].name) {
     for (let i = 0; i < $attackCards.length; i++) {
       $attackCards.eq(i).off();
@@ -203,10 +217,8 @@ function renderPlayers(playerName,gameObj) {
 
 function renderField(playerName, gameObj){
   //renders the cards on the field following an update in game
-  console.log('rendering field cards');
 
   $.each(gameObj.fieldCards, (index, pair) => {
-    console.log('actually rendering!!');
     if (pair.length > 0)  appendAttackingCard(pair[0], index);
     if (pair.length > 1)  appendDefendingCard(pair[1], index);
   });
@@ -214,15 +226,13 @@ function renderField(playerName, gameObj){
 
 function renderDeck(deck){
   //render the draw deck.
-  console.log('rendering deck');
   deck.cards.forEach( (card) => {
     $('.deck#draw').append($('<li/>').html('<div class=\"card back\">*</div>'));
 
     //removing last card from deck was done the following way:
     //         $('#draw li:last').remove();
   });
-
-}
+ }
 
 
 });
