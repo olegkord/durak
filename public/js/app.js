@@ -26,6 +26,8 @@ socket.on('attack again', (gameState) => {
 
   refresh();
   renderGame(gameState);
+  allowAttack(myUser, gameState);
+  disallowDefence(myUser, gameState);
 })
 
 socket.on('player defend', (gameState) => {
@@ -89,9 +91,12 @@ function allowAttack(userName, gameObj) {
 
     $endRoundButton.click( (event) => {
         if (gameObj.numOnField.length != 0) {
-          console.log('Ending Current Round');
+          console.log('clicked end round!');
           event.preventDefault();
           event.stopPropagation();
+          socket.emit('end round', {
+
+          });
         }
         else {
           alert('You can\'t end the turn right now!');
@@ -150,6 +155,18 @@ function allowDefence(userName, gameObj) {
           handIndex: i
         });
       });
+    }
+  }
+}
+
+function disallowDefence(userName, gameObj) {
+  //prevents the defending user from clicking on stuff during attack phase.
+  let $defendingCards = $('#' + (gameObj.defending + 1) + '> ul > li');
+  console.log('Deauthorize event clicks.');
+  if (userName === gameObj.players[gameObj.defending].name) {
+
+    for (let i = 0; i < $defendingCards.length; i++) {
+      $defendingCards.eq(i).off()
     }
   }
 }

@@ -39,9 +39,25 @@ module.exports = function Game(player1Name,player2Name){
       defending: this.defending
     }
   }
+
   this.start = function() {
     this.makeDeck();
     this.deal();
+  }
+
+  this.nextTurn = function() {
+    //resets the game for next round.
+
+    //recover players hands, attacker draws first
+    this.recoverPlayer(this.players[this.attacking]);
+    this.recoverPlayer(this.players[this.defending]);
+
+    this.numOnField = [];
+    this.fieldCards = [];
+
+    this.switchPlayers();
+
+    return this.state();
   }
 
   this.makeDeck = function() {
@@ -55,18 +71,25 @@ module.exports = function Game(player1Name,player2Name){
     player.hand.push(this.deck.cards.pop());
   }
 
+  this.recoverPlayer = function(player) {
+    if (this.deck.cards.length > 0) {
+      while (player.hand.length < 6) {
+        this.giveCard(player);
+      }
+    }
+  }
+
   this.deal = function() {
     //deal cards to players.
-    for (let i = 0; i< 6; i++){
-      this.giveCard(this.player1);
-      this.giveCard(this.player2);
-    }
+
+    this.recoverPlayer(this.player1);
+    this.recoverPlayer(this.player2);
 
     this.trump = this.deck.cards[this.deck.cards.length-1].suit;
     this.deck.cards.push(this.deck.cards.pop());
   }
 
-  this.nextTurn = function() {
+  this.switchPlayers = function() {
     if (this.attacking === 0){
       this.attacking = 1;
       this.defending = 0;
@@ -127,12 +150,6 @@ module.exports = function Game(player1Name,player2Name){
     this.numOnField.push(defendingCard[0].number);
 
   }
-
-  this.recover = function() {
-
-    this.nextTurn();
-  }
-
 }
 ///////
 //HELPER FUNCTIONS

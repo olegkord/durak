@@ -64,12 +64,8 @@ io.on('connection', (client) => {
 
   client.on('defend card', (data) => {
     //vet the card that the player has chosen.
-    // if pass: send a signal to append the card in the field.
-    // if fail: send a signal to choose another card to defend with.
-
     if (game.vetDefendCard(data.defendingCard)) {
       //if the game rules allow for this card to be played.
-
       game.makeDefend(data);
       io.emit('attack again', game.state());
     }
@@ -77,8 +73,11 @@ io.on('connection', (client) => {
       //if game rules do not allow for this card to be played.
       io.emit('player defend', game.state());
     }
+  });
 
-
+  client.on('end round', (data) => {
+    console.log('END ROUND HEARD')
+    io.emit('attack again', game.nextTurn());
   })
 })
 
