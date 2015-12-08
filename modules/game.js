@@ -44,6 +44,29 @@ module.exports = function Game(player1Name,player2Name){
     this.makeDeck();
     this.deal();
   }
+  this.playerTakes = function() {
+    //triggers when a player takes the cards from the field and chooses not to beat them.
+
+//recover players hands, attacker draws first
+    this.recoverPlayer(this.players[this.attacking]);
+    this.numOnField = [];
+    //loop through field cards and add them to defending player hand.
+
+    let numPairs = this.fieldCards.length;
+    let defendingPlayer = this.players[this.defending];
+
+    for (let pair=0; pair < numPairs; pair++) {
+      this.fieldCards[pair].forEach( (card) => {
+        defendingPlayer.hand.push(card);
+      });
+    }
+
+    this.fieldCards = [];
+// This can probably be abstracted out.
+
+    debugger;
+    return this.state();
+  }
 
   this.nextTurn = function() {
     //resets the game for next round.

@@ -94,15 +94,12 @@ function allowAttack(userName, gameObj) {
           console.log('clicked end round!');
           event.preventDefault();
           event.stopPropagation();
-          socket.emit('end round', {
-
-          });
+          socket.emit('end round', {});
         }
         else {
           alert('You can\'t end the turn right now!');
         }
     });
-
 
     for (let i = 0; i < $attackCards.length; i++) {
       $attackCards.eq(i).click( (event) => {
@@ -139,12 +136,22 @@ function allowDefence(userName, gameObj) {
   //allows for click events on the defending player side.
   //however the user must WAIT until an attack event has occured to defend.
   let $defendingCards = $('#' + (gameObj.defending + 1) + '> ul > li');
+  let $takeCardButton = $('#take-cards');
   console.log('registering click events for defence.');
   if (userName === gameObj.players[gameObj.defending].name) {
 
+    $takeCardButton.click( (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (gameObj.numOnField.length%2 === 1) {
+        //player can take if there are an odd number of cards on the field
+        console.log('clicked take cards!');
+        socket.emit('take cards', {});
+      }
+    })
+
     for (let i = 0; i < $defendingCards.length; i++) {
       $defendingCards.eq(i).click( (event) => {
-
         event.preventDefault();
         event.stopPropagation();
         //activate the defending player's cards for clicks.

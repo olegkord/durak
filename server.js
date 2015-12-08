@@ -76,8 +76,11 @@ io.on('connection', (client) => {
   });
 
   client.on('end round', (data) => {
-    console.log('END ROUND HEARD')
     io.emit('attack again', game.nextTurn());
+  });
+
+  client.on('take cards', (data) => {
+    io.emit('attack again', game.playerTakes());
   })
 })
 
