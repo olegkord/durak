@@ -68,8 +68,14 @@ function renderGame(gameObject) {
 
   renderPlayers(myUser, gameObject);
   updateCurrentPlayer(gameObject);
+  updateTrump(gameObject);
 
+}
 
+function updateTrump(gameObj) {
+  //updates the trump suit field with the current trump suit.
+  let $trumpField = $('#trump');
+  $trumpField.html(gameObj.trump);
 }
 
 function allowAttack(userName, gameObj) {
