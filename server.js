@@ -48,14 +48,18 @@ io.on('connection', (client) => {
 
       io.emit('two players', game.state());
     }
-
-
   });
 
   client.on('player attack', (data) => {
     //update game state with the attack and return game state to front end.
-    game.makeAttack(data);
-    io.emit('player defend', game.state());
+    if (game.vetAttackCard(data.attackingCard)) {
+      game.makeAttack(data);
+      io.emit('player defend', game.state());
+    }
+    else {
+      //if card cannot be played, user must select another card
+      io.emit('attack again')
+    }
   });
 
   client.on('defend card', (data) => {
@@ -65,7 +69,7 @@ io.on('connection', (client) => {
 
     if (game.vetDefendCard(data.defendingCard)) {
       //if the game rules allow for this card to be played.
-      debugger;
+
       game.makeDefend(data);
       io.emit('attack again', game.state());
     }

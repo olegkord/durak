@@ -77,10 +77,14 @@ module.exports = function Game(player1Name,player2Name){
     }
   }
 
-  this.vetAttackCard = function(cardData) {
+  this.vetAttackCard = function(attackingCard) {
     //this function evaluates game rules to see if a given card can be played.
     //returns TRUE or FALSE
+    debugger;
+    let numCheck = this.numOnField.includes(attackingCard.number);
 
+    //user can attack if the card's number is already on the field or if there are 0 cards on the field.
+    return (numCheck) || (this.numOnField.length === 0)
   }
 
   this.makeAttack = function(cardData){
@@ -130,4 +134,35 @@ module.exports = function Game(player1Name,player2Name){
     this.nextTurn();
   }
 
+}
+///////
+//HELPER FUNCTIONS
+//////
+if (!Array.prototype.includes) {
+  Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
+    'use strict';
+    var O = Object(this);
+    var len = parseInt(O.length) || 0;
+    if (len === 0) {
+      return false;
+    }
+    var n = parseInt(arguments[1]) || 0;
+    var k;
+    if (n >= 0) {
+      k = n;
+    } else {
+      k = len + n;
+      if (k < 0) {k = 0;}
+    }
+    var currentElement;
+    while (k < len) {
+      currentElement = O[k];
+      if (searchElement === currentElement ||
+         (searchElement !== searchElement && currentElement !== currentElement)) {
+        return true;
+      }
+      k++;
+    }
+    return false;
+  };
 }
