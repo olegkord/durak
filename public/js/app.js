@@ -18,7 +18,7 @@ socket.on('two players', (gameState) => {
   $('#your-user').html(myUser)
 
   renderGame(gameState);
-
+  allowAttack(myUser, gameState);
 })
 
 socket.on('attack again', (gameState) => {
@@ -48,7 +48,7 @@ function refresh() {
   //refreshes game before re-rendering it.
   $('#2 > .table').children().remove();
   $('#1 > .table').children().remove();
-  $('#field > .hand').children().remove();
+  $('.player#field').children().remove();
   $('#draw').children().remove();
   $('#discard').children().remove();
 }
@@ -69,7 +69,7 @@ function renderGame(gameObject) {
   renderPlayers(myUser, gameObject);
   updateCurrentPlayer(gameObject);
 
-  allowAttack(myUser, gameObject);
+
 }
 
 function allowAttack(userName, gameObj) {
@@ -147,8 +147,7 @@ function appendAttackingCard(card, index) {
 function appendDefendingCard(card, index) {
   console.log('appending defending cards');
   card = createJQcard(card[0]);
-  let $divTarget = $('.field#' + String(index) + '> .hand');
-  $divTarget.append($('<li>').append(card.$card));
+  $('.field#' + String(index) + '> .hand').append($('<li>').append(card.$card));
 }
 
 function updateCurrentPlayer(gameObj) {
