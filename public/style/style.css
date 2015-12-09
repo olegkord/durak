@@ -6,21 +6,21 @@ button {
   height: 20px;
   margin: 10px;
 }
-div {
-  border: solid 1px black;
-}
+
 footer {
   height: 100px;
 }
+
 .container {
   width: 90%;
   height: 450px;
   border: 2px solid black;
+  border-radius: 5px;
   min-width: 500px;
+  margin-left: 30px;
 }
 
 .sidebar-left {
-  border: solid black 2px;
   height: 450px;
   padding: 0px;
   width: 18%;
@@ -29,8 +29,6 @@ footer {
 
 .login {
   margin: auto;
-  border: solid black 2px;
-  border-radius: 5px;
   text-align: center;
 }
 
@@ -47,14 +45,10 @@ footer {
   width: 80%;
 }
 
-.info {
-  height: 175px;
-}
-
 .player {
+  margin-bottom: 175px;
   height: 30px;
-  margin-bottom:175px;
-  width: 100%;
+  width: 90%;
 }
 
 .field {
@@ -80,12 +74,12 @@ footer {
   background-color: lightgreen;
   height: 450px;
   width: 80%;
-  margin-left: 30px;
-  border: solid black 2px;
   margin: 0px;
   float: right;
 }
-
+#player1 {
+  margin-bottom: 110px;
+}
 #player2 {
-  margin-bottom: 70px;
+  margin-bottom: 110px;
 }
