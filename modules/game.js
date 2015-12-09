@@ -168,7 +168,14 @@ module.exports = function Game(player1Name,player2Name){
 
     this.fieldCards[numPairs].push(defendingCard);
     this.numOnField.push(defendingCard[0].number);
+  }
 
+  this.checkWin = function() {
+    let defendingPlayer = this.players[this.defending];
+    let attackingPlayer = this.players[this.attacking];
+    return (this.deck.cards.length === 0) &&
+           ((attackingPlayer.hand.length == 0)||
+           (defendingPlayer.hand.length === 0));
   }
 }
 ///////

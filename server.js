@@ -67,7 +67,13 @@ io.on('connection', (client) => {
     if (game.vetDefendCard(data.defendingCard)) {
       //if the game rules allow for this card to be played.
       game.makeDefend(data);
-      io.emit('attack again', game.state());
+
+      if (!game.checkWin()) {
+        io.emit('attack again', game.state());
+      }
+      else {
+        io.emit('defence wins', game.state());
+      }
     }
     else {
       //if game rules do not allow for this card to be played.

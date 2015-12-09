@@ -41,6 +41,12 @@ socket.on('player defend', (gameState) => {
 
 });
 
+socket.on('winner found', (gameState) => {
+  refresh();
+  let defendingPlayer = gameState.players[gameState.defending];
+  alert(defendingPlayer.name + ' has won!!! Refresh to play again');
+})
+
 
 ///////////
 ///FRONT END DOM FUNCTIONS BELOW:
