@@ -70,10 +70,10 @@ footer {
 }
 
 #draw{
-  margin: 0px;
+  margin: 50px;
   width: 20px;
   height:50px;
-  float: left;
+  float: right;
 }
 
 #table {
@@ -86,8 +86,6 @@ footer {
   float: right;
 }
 
-#discard {
-  margin: 250px 70px;
-  width: 20px;
-  height: 50px;
+#player2 {
+  margin-bottom: 90px;
 }

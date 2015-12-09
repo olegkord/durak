@@ -64,12 +64,12 @@ io.on('connection', (client) => {
 
   client.on('defend card', (data) => {
     //vet the card that the player has chosen.
-    if (game.vetDefendCard(data.defendingCard)) {
+
+    if (game.vetDefendCard(data.defendingCard,game.trump)) {
       //if the game rules allow for this card to be played.
       game.makeDefend(data);
 
       if (!game.checkWin()) {
-        debugger;
         io.emit('attack again', game.state());
       }
       else {

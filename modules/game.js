@@ -142,7 +142,7 @@ module.exports = function Game(player1Name,player2Name){
     this.numOnField.push(attackingCard[0].number)
   }
 
-  this.vetDefendCard = function(defendingCard) {
+  this.vetDefendCard = function(defendingCard,trumpSuit) {
     //This function applies game rules to allow or disallow a played defence card.
     //return TRUE or FALSE
 
@@ -151,11 +151,12 @@ module.exports = function Game(player1Name,player2Name){
     let attackingCard = this.fieldCards[numPairs][0];
 
     //define booleans for evaluating card.
-    let suitCheck = (defendingCard.suit === attackingCard.suit);
-    let valCheck  = ((defendingCard.number > attackingCard.number) || (defendingCard.suit === this.trump));
-    debugger;
+
+    let suitCheck = (defendingCard.suit === attackingCard.suit)||(defendingCard.suit === trumpSuit);
+    let valCheck  = (defendingCard.number > attackingCard.number)||(defendingCard.suit === trumpSuit);
+
     //both booleans must be true.
-    return valCheck || suitCheck;
+    return (valCheck && suitCheck);
   }
 
   this.makeDefend = function(data){
