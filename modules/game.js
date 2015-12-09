@@ -60,11 +60,8 @@ module.exports = function Game(player1Name,player2Name){
         defendingPlayer.hand.push(card);
       });
     }
-
     this.fieldCards = [];
 // This can probably be abstracted out.
-
-    debugger;
     return this.state();
   }
 
@@ -156,9 +153,9 @@ module.exports = function Game(player1Name,player2Name){
     //define booleans for evaluating card.
     let suitCheck = (defendingCard.suit === attackingCard.suit);
     let valCheck  = ((defendingCard.number > attackingCard.number) || (defendingCard.suit === this.trump));
-
+    debugger;
     //both booleans must be true.
-    return (suitCheck && valCheck);
+    return valCheck || suitCheck;
   }
 
   this.makeDefend = function(data){
