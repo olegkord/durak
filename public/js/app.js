@@ -41,11 +41,17 @@ socket.on('player defend', (gameState) => {
 
 });
 
-socket.on('winner found', (gameState) => {
+socket.on('defence wins', (gameState) => {
   refresh();
   let defendingPlayer = gameState.players[gameState.defending];
-  alert(defendingPlayer.name + ' has won!!! Refresh to play again');
-})
+  alert(defendingPlayer.name + ' has won!!! Refresh to play again.');
+});
+
+socket.on('attack wins', (gameState) => {
+  refresh();
+  let attackingPlayer = gameState.players[gameState.attacking];
+  alert(attackingPlayer.name + ' has won!!! Refresh to play again.');
+});
 
 
 ///////////

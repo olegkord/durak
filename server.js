@@ -54,7 +54,13 @@ io.on('connection', (client) => {
     //update game state with the attack and return game state to front end.
     if (game.vetAttackCard(data.attackingCard)) {
       game.makeAttack(data);
-      io.emit('player defend', game.state());
+      
+      if (!game.checkWin()) {
+        io.emit('player defend', game.state());
+      }
+      else {
+        io.emit('attack wins', game.state());
+      }
     }
     else {
       //if card cannot be played, user must select another card
