@@ -10,7 +10,7 @@ let bodyParser = require('body-parser');
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
 app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
 app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
@@ -54,7 +54,7 @@ io.on('connection', (client) => {
     //update game state with the attack and return game state to front end.
     if (game.vetAttackCard(data.attackingCard)) {
       game.makeAttack(data);
-      
+
       if (!game.checkWin()) {
         io.emit('player defend', game.state());
       }
