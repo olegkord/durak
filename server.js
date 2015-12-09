@@ -69,6 +69,7 @@ io.on('connection', (client) => {
       game.makeDefend(data);
 
       if (!game.checkWin()) {
+        debugger;
         io.emit('attack again', game.state());
       }
       else {

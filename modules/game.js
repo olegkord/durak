@@ -166,7 +166,7 @@ module.exports = function Game(player1Name,player2Name){
     let defendingCard = this.players[this.defending].hand.splice(handIndex,1);
     let numPairs = this.fieldCards.length-1;
 
-    this.fieldCards[numPairs].push(defendingCard);
+    this.fieldCards[numPairs].push(defendingCard[0]);
     this.numOnField.push(defendingCard[0].number);
   }
 

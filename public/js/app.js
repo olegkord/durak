@@ -54,8 +54,8 @@ socket.on('winner found', (gameState) => {
 
 function refresh() {
   //refreshes game before re-rendering it.
-  $('#2 > .table').children().remove();
-  $('#1 > .table').children().remove();
+  $('#player2 > .table').children().remove();
+  $('#player1 > .table').children().remove();
   $('.player#field').children().remove();
   $('#draw').children().remove();
   $('#discard').children().remove();
@@ -90,7 +90,7 @@ function allowAttack(userName, gameObj) {
   //allows for click events on the attacking player side.
   console.log('registering click events for attack');
 
-  let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
+  let $attackCards = $('#player'+ (gameObj.attacking+1) + ' > ul > li');
   let $endRoundButton = $('#end-round');
 
   if (userName === gameObj.players[gameObj.attacking].name) {
@@ -127,7 +127,7 @@ function allowAttack(userName, gameObj) {
 function disallowAttack(userName, gameObj) {
   //remove click events from all cards in hand.
   console.log('deauthorize player from attacking while opponent defends.')
-  let $attackCards = $('#'+ (gameObj.attacking+1) + ' > ul > li');
+  let $attackCards = $('#player'+ (gameObj.attacking+1) + ' > ul > li');
   let $endRoundButton = $('#end-round');
   $endRoundButton.off();
   if (userName === gameObj.players[gameObj.attacking].name) {
@@ -141,7 +141,7 @@ function disallowAttack(userName, gameObj) {
 function allowDefence(userName, gameObj) {
   //allows for click events on the defending player side.
   //however the user must WAIT until an attack event has occured to defend.
-  let $defendingCards = $('#' + (gameObj.defending + 1) + '> ul > li');
+  let $defendingCards = $('#player' + (gameObj.defending + 1) + '> ul > li');
   let $takeCardButton = $('#take-cards');
   console.log('registering click events for defence.');
   if (userName === gameObj.players[gameObj.defending].name) {
@@ -174,7 +174,7 @@ function allowDefence(userName, gameObj) {
 
 function disallowDefence(userName, gameObj) {
   //prevents the defending user from clicking on stuff during attack phase.
-  let $defendingCards = $('#' + (gameObj.defending + 1) + '> ul > li');
+  let $defendingCards = $('#player' + (gameObj.defending + 1) + '> ul > li');
   console.log('Deauthorize event clicks.');
   if (userName === gameObj.players[gameObj.defending].name) {
 
@@ -196,7 +196,7 @@ function appendAttackingCard(card, index) {
 
 function appendDefendingCard(card, index) {
   console.log('appending defending cards');
-  card = createJQcard(card[0]);
+  card = createJQcard(card);
   $('.field#' + String(index) + '> .hand').append($('<li>').append(card.$card));
 }
 
@@ -226,18 +226,18 @@ function renderPlayers(playerName,gameObj) {
   //renders a players hand as face up or face down depending on the current user
   if (playerName === gameObj.player1.name){
     gameObj.player1.hand.forEach( (card) => {
-      $('#1 > .table').append($('<li/>').append(card.$card))
+      $('#player1 > .table').append($('<li/>').append(card.$card))
     });
     gameObj.player2.hand.forEach( (card) => {
-      $('#2 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+      $('#player2 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
     });
   }
   else if (playerName === gameObj.player2.name) {
     gameObj.player2.hand.forEach( (card) => {
-      $('#2 > .table').append($('<li/>').append(card.$card))
+      $('#player2 > .table').append($('<li/>').append(card.$card))
     });
     gameObj.player1.hand.forEach( (card) => {
-      $('#1 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
+      $('#player1 > .table').append($('<li/>').html('<div class=\"card back\">*</div>'));
     });
   }
   else {
