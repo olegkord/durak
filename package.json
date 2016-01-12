@@ -1,7 +1,6 @@
 {
   "name": "durak2",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.4.8",
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
     "css-loader": "^0.23.1",
     "express": "^4.13.3",
@@ -23,5 +22,15 @@
     "style-loader": "^0.13.0",
     "underscore": "^1.8.3",
     "webpack": "^1.12.11"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olegkord/durak.git"
+  },
+  "bugs": {
+    "url": "https://github.com/olegkord/durak/issues"
+  },
+  "homepage": "https://github.com/olegkord/durak#readme",
+  "description": ""
 }

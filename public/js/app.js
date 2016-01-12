@@ -2,11 +2,18 @@
 
 //require statements for webpack:
 
+// //js libraries
+ // let $ = require('jquery');
+ // let _ = require('underscore');
+ let socket = io();
+//
+// //css libraries:
+ // let css = require('../style/style.css')
+
 
 $(function() {
 console.log('script file loaded');
 
-let socket = io();
 let myUser = '';
 
 $('#user-login').click( (event) => {

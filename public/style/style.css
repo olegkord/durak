@@ -1,3 +1,6 @@
+@import 'normalize.css';
+@import 'cards.css';
+
 header {
   height: 100px;
 }
