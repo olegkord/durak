@@ -1,4 +1,8 @@
 'use strict';
+
+//require statements for webpack:
+
+
 $(function() {
 console.log('script file loaded');
 
