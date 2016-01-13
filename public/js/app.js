@@ -3,9 +3,10 @@
 //require statements for webpack:
 
 // //js libraries
- // let $ = require('jquery');
- // let _ = require('underscore');
- let socket = io();
+let $ = require('jquery');
+let _ = require('underscore');
+
+let socket = io();
 //
 // //css libraries:
  // let css = require('../style/style.css')
