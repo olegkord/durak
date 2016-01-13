@@ -12,8 +12,7 @@ let io = require('socket.io')(server);
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
-app.use('/scripts', express.static(__dirname + '/node_modules/angular'));
-app.use('/scripts', express.static(__dirname + '/node_modules/underscore'));
+
 
 //// Require game modules to be hosted on back end
 
