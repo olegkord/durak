@@ -17,6 +17,12 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: '#source-map',
+  module: {
+      loaders: [
+        { test: /\.css$/, exclude: /\.useable\.css$/, loader: "style!css" },
+        { test: /\.useable\.css$/, loader: "style/useable!css" }
+      ]
+  },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
