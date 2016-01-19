@@ -7,14 +7,12 @@ module.exports = (function() {
   let myUser = '';
 
   $('#user-login').click( (event) => {
-    console.log('clicked login');
     let userName = $('input').val();
     myUser = userName;
     socket.emit('user added', userName);
   })
 
   socket.on('two players', (gameState) => {
-    console.log('response received');
     $('.login').hide();
     $('#your-user').html(myUser)
 
@@ -23,8 +21,6 @@ module.exports = (function() {
   })
 
   socket.on('attack again', (gameState) => {
-    console.log('You may attack again if you want');
-
     refresh();
     renderGame(gameState);
     allowAttack(myUser, gameState);
@@ -32,8 +28,6 @@ module.exports = (function() {
   })
 
   socket.on('player defend', (gameState) => {
-    console.log('player must defend');
-
     refresh();
     renderGame(gameState);
 
@@ -70,7 +64,6 @@ module.exports = (function() {
 
   function renderGame(gameObject) {
     //renders the full game through a combination of subfunctions
-    console.log('render game');
     renderDeck(gameObject.deck);
 
     //Build players' hands with Jquery cards:
@@ -95,8 +88,6 @@ module.exports = (function() {
 
   function allowAttack(userName, gameObj) {
     //allows for click events on the attacking player side.
-    console.log('registering click events for attack');
-
     let $attackCards = $('#player'+ (gameObj.attacking+1) + ' > ul > li');
     let $endRoundButton = $('#end-round');
 
@@ -104,7 +95,6 @@ module.exports = (function() {
 
       $endRoundButton.click( (event) => {
           if (gameObj.numOnField.length != 0) {
-            console.log('clicked end round!');
             event.preventDefault();
             event.stopPropagation();
             socket.emit('end round', {});
@@ -133,7 +123,6 @@ module.exports = (function() {
 
   function disallowAttack(userName, gameObj) {
     //remove click events from all cards in hand.
-    console.log('deauthorize player from attacking while opponent defends.')
     let $attackCards = $('#player'+ (gameObj.attacking+1) + ' > ul > li');
     let $endRoundButton = $('#end-round');
     $endRoundButton.off();
@@ -150,7 +139,6 @@ module.exports = (function() {
     //however the user must WAIT until an attack event has occured to defend.
     let $defendingCards = $('#player' + (gameObj.defending + 1) + '> ul > li');
     let $takeCardButton = $('#take-cards');
-    console.log('registering click events for defence.');
     if (userName === gameObj.players[gameObj.defending].name) {
 
       $takeCardButton.click( (event) => {
@@ -158,7 +146,6 @@ module.exports = (function() {
         event.stopPropagation();
         if (gameObj.numOnField.length%2 === 1) {
           //player can take if there are an odd number of cards on the field
-          console.log('clicked take cards!');
           socket.emit('take cards', {});
         }
       })
@@ -182,7 +169,6 @@ module.exports = (function() {
   function disallowDefence(userName, gameObj) {
     //prevents the defending user from clicking on stuff during attack phase.
     let $defendingCards = $('#player' + (gameObj.defending + 1) + '> ul > li');
-    console.log('Deauthorize event clicks.');
     if (userName === gameObj.players[gameObj.defending].name) {
 
       for (let i = 0; i < $defendingCards.length; i++) {
@@ -193,7 +179,6 @@ module.exports = (function() {
 
 
   function appendAttackingCard(card, index) {
-    console.log('appending attacking card');
     card = createJQcard(card);
     let $newField = $('.player#field')
     let $newPairDiv = $('<div>').addClass('player field').attr('id', index);
@@ -202,7 +187,6 @@ module.exports = (function() {
   }
 
   function appendDefendingCard(card, index) {
-    console.log('appending defending cards');
     card = createJQcard(card);
     $('.field#' + String(index) + '> .hand').append($('<li>').append(card.$card));
   }
@@ -214,7 +198,6 @@ module.exports = (function() {
 
   function createHandCards(hand) {
     hand.forEach( (card) => {
-      console.log('creating card for hand');
       card = createJQcard(card);
     });
     return hand;
