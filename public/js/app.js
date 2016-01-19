@@ -8,5 +8,5 @@ let _ = require('underscore');
 // //css libraries:
 let css = require('../style/style.css')
 
-require('./game_events.js');
-require('./angular_main.js');
+let main = require('./angular_main.js');
+let game = require('./game_events.js');
