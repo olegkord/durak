@@ -5,7 +5,7 @@
 // //js libraries
 let $ = require('jquery');
 let _ = require('underscore');
-
+let angular = require('angular');
 
 let socket = io();
 //
