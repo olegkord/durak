@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html >
   <head>
     <meta charset="utf-8">
 <!--
@@ -21,52 +21,17 @@
 
 
   </head>
-  <body ng-app="durak">
+  <body >
     <header>
-
+      Durak with friends
     </header>
-    <div class="container">
-      <div class="sidebar-left">
-        <div class="login">
-          <form class="login-form">
-            <input type="text" class="text-form" value="">
-            <button type="button" id="user-login">Log in</button>
-          </form>
-        </div>
-        <div class="info">
-          <h3>Logged in as:</h3>
-          <p><span id="your-user"></span></p>
-          <h3>Attacking:</h3>
-          <p><span id="current-player"></span></p>
-        </div>
-        <div class="info">
-          <h3>Game Info:</h3>
-          <p>Trump Suit: <span id="trump"></span></p>
-          <button type="button" id="take-cards">Take Cards</button>
-          <button type="button" id="end-round">End Round</button>
-        </div>
-      </div>
-
-      <div class="playingCards simpleCards board" id="table">
-        <div class="player" id="player2">
-          <ul class="table">
-
-          </ul>
-        </div>
-          <ul class="deck" id="draw"></ul>
-
-        <div class="player" id="field">
-
-        </div>
-
-        <div class="player" id="player1">
-          <ul class="table">
-          </ul>
-        </div>
+    <div ng-app="durak">
+      {{2+2}}
+      <div ui-view>
 
       </div>
+      
     </div>
-
     <footer></footer>
       <script type="text/javascript" src="/socket.io/socket.io.js"></script>
       <script type="text/javascript" src="/public/js/bundle.js"></script>

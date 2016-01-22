@@ -6,6 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "WEBPACK_CONFIG=./webpack.config.js nodemon server.js"
   },
+  "browser": {
+    "ui.router": "angular-ui-router"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,6 +22,7 @@
     "kerberos": "0.0.17",
     "mongoose": "^4.2.8",
     "morgan": "^1.6.1",
+    "ngtemplate-loader": "^1.3.1",
     "path": "^0.12.7",
     "socket.io": "^1.3.7",
     "style-loader": "^0.13.0",

@@ -1,4 +1,5 @@
 'use strict';
+
 function User() {
 
   let currentUser = {};
