@@ -8,4 +8,8 @@ module.exports = function($stateProvider, $urlRouterProvider, $httpProvider) {
       url: '/home',
       templateUrl: './templates/home.html'
     })
+    .state('signup', {
+      url: '/signup',
+      templateUrl: './templates/signup.html'
+    })
 }
