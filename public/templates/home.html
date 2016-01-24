@@ -1,9 +1,18 @@
 <div ng-controller="LoginController as login">
-  <form method="post">
+  <form novalidate class="css-form">
     Email:
-    <br><input type="text" name="login" value="" placeholder="Username"></input>
+    <br>
+    <input
+       type="email"
+       ng-model="login.userForLogin.email"
+       placeholder="user@email.com"
+       required></input>
     Password:
-    <br><input type="password" name="password" value="" placeholder="password"></input>
+    <br>
+    <input
+      type="password"
+      placeholder="password"
+      required></input>
     <br><br><input type="submit" value="Log In"><p>Sign up<p>
   </form>
 <div>

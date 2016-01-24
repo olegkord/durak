@@ -15,4 +15,4 @@ angular.module('durak',[
     .controller('LoginController', LoginController)
     .controller('SignupController', SignupController)
     .run(['$rootScope','$state','User', ($rootScope, $state, User) => {
-  }]);
+  }])
