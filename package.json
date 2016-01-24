@@ -7,7 +7,7 @@
     "start": "WEBPACK_CONFIG=./webpack.config.js nodemon server.js"
   },
   "browser": {
-    "ui.router": "angular-ui-router",
+    "ui.router": "angular-ui-router"
   },
   "author": "",
   "license": "ISC",
