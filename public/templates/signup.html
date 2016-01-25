@@ -1,1 +1,37 @@
-awesome sign up user page
+<div ng-controller="SignupController as signup">
+  <form novalidate class="add-user" ng-submit="signup.sendUser(signup.signupUser)">
+    <br>Email:
+    <input placeholder="user@email.com"
+      ng-model="signup.signupUser.email"
+      ng-model-options="{ updateOn: 'blur' }"
+      name="email"
+      required type="email">
+    </input>
+    <div class="error-message"
+      ng-show="form.email.$invalid && !form.email.$pristine">
+      Please enter a valid email address.
+    </div><br>
+    <input placeholder="Password"
+      ng-model="signup.signupUser.password"
+      ng-model-options="{ updateOn: 'blur' }"
+      name="password"
+      required type="password"
+      pattern=".{2,}">
+    </input>
+    <div class="error-message"
+      ng-show="form.password.$invalid && !form.password.$pristine">
+      Passwords must have at least 2 chars.
+    </div><br>
+    <input placeholder="Password Again"
+      ng-model="signup.passwordMatch"
+      name="passwordMatch"
+      required type="password"
+      wj-valid="signup.passwordMatch == signup.signupUser.password">
+    </input>
+    <div class="error-message"
+      ng-show="form.check.$invalid && !form.check.$pristine">
+      The passwords do not match.
+    </div>
+    <button ng-disabled="form.$invalid" type="submit">Sign Up!</button>
+ </form>
+</div>
