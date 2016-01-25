@@ -6,7 +6,7 @@ module.exports = function($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl: './templates/home.html'
+      templateUrl: './templates/login.html'
     })
     .state('signup', {
       url: '/signup',

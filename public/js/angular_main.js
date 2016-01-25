@@ -16,3 +16,8 @@ angular.module('durak',[
     .controller('SignupController', SignupController)
     .run(['$rootScope','$state','User', ($rootScope, $state, User) => {
   }])
+    .run( ($rootScope, $templateCache) => {
+      $rootScope.$on('$viewContentLoaded', () => {
+        $templateCache.removeAll();
+      });
+    });

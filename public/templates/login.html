@@ -1,18 +1,30 @@
 <div ng-controller="LoginController as login">
-  <form ng-submit="login.logIn(login.userForLogin)" class="css-form">
-    Email:
-    <br>
-    <input
-       type="email"
-       ng-model="login.userForLogin.email"
-       placeholder="user@email.com"
-       required></input>
-    Password:
-    <br>
-    <input
-      type="password"
-      placeholder="password"
-      required></input>
-    <br><br><button type="submit" value="Log In"><p>Sign up<p>
+  <form novalidate name="form" ng-submit="login.logIn(login.userForLogin)">
+    <input placeholder="user@email.com"
+      name="email"
+      ng-model="login.userForLogin.email"
+      ng-model-options="{updateOn: 'blur'}"
+      required type="email">
+    </input><br>
+    <div class="error-message"
+      ng-show="form.email.$invalid && !form.email.$pristine">
+      Please enter a valid email address.
+    </div>
+    <input placeholder="Password"
+      name="password"
+      required type="password">
+    </input><br>
+    <div class="error-message"
+      ng-show="form.password.$invalid && !form.password.$pristine">
+      You can't log in without a password!
+    </div>
+    <button type="submit"
+      ng-disabled="form.$invalid">
+      Log In!
+    </button><br>
+    <button ui-sref="signup"
+      value="Sign up">
+      Sign Up!
+    </button><br>
   </form>
 <div>

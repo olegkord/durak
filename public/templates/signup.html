@@ -29,7 +29,7 @@
       wj-valid="signup.passwordMatch == signup.signupUser.password">
     </input>
     <div class="error-message"
-      ng-show="form.check.$invalid && !form.check.$pristine">
+      ng-show="form.passwordMatch.$invalid && !form.passwordMatch.$pristine">
       The passwords do not match.
     </div>
     <button ng-disabled="form.$invalid" type="submit">Sign Up!</button>
