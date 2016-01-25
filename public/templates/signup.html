@@ -1,35 +1,34 @@
 <div ng-controller="SignupController as signup">
-  <form novalidate class="add-user" ng-submit="signup.sendUser(signup.signupUser)">
-    <br>Email:
+  <form novalidate name="form" ng-submit="signup.sendUser(signup.signupUser)">
     <input placeholder="user@email.com"
       ng-model="signup.signupUser.email"
       ng-model-options="{ updateOn: 'blur' }"
       name="email"
       required type="email">
-    </input>
+    </input><br>
     <div class="error-message"
       ng-show="form.email.$invalid && !form.email.$pristine">
       Please enter a valid email address.
-    </div><br>
+    </div>
     <input placeholder="Password"
       ng-model="signup.signupUser.password"
       ng-model-options="{ updateOn: 'blur' }"
       name="password"
       required type="password"
       pattern=".{2,}">
-    </input>
+    </input><br>
     <div class="error-message"
       ng-show="form.password.$invalid && !form.password.$pristine">
       Passwords must have at least 2 chars.
-    </div><br>
+    </div>
     <input placeholder="Password Again"
       ng-model="signup.passwordMatch"
+      ng-model-options="{ updateOn: 'blur'}"
       name="passwordMatch"
-      required type="password"
-      wj-valid="signup.passwordMatch == signup.signupUser.password">
-    </input>
+      required type="password">
+    </input><br>
     <div class="error-message"
-      ng-show="form.passwordMatch.$invalid && !form.passwordMatch.$pristine">
+      ng-show="(signup.passwordMatch != signup.signupUser.password) && !form.passwordMatch.$pristine">
       The passwords do not match.
     </div>
     <button ng-disabled="form.$invalid" type="submit">Sign Up!</button>
