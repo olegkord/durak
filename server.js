@@ -18,9 +18,9 @@ app.set('port', process.env.PORT || 3000);
 (function() {
 
   // Step 1: Create & configure a webpack compiler
-  var webpack = require('webpack');
-  var webpackConfig = require(process.env.WEBPACK_CONFIG ? process.env.WEBPACK_CONFIG : './webpack.config');
-  var compiler = webpack(webpackConfig);
+  let webpack = require('webpack');
+  let webpackConfig = require(process.env.WEBPACK_CONFIG ? process.env.WEBPACK_CONFIG : './webpack.config');
+  let compiler = webpack(webpackConfig);
 
   // Step 2: Attach the dev middleware to the compiler & the server
   app.use(require("webpack-dev-middleware")(compiler, {
@@ -31,11 +31,12 @@ app.set('port', process.env.PORT || 3000);
   app.use(require("webpack-hot-middleware")(compiler, {
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
   }));
-
-	debugger;
 })();
 
 app.use(express.static('public'));
+
+let user = require('./controllers/usersController');
+app.use('/user', user);
 
 //// Require game modules to be hosted on back end
 
@@ -46,7 +47,7 @@ let Game = require('./modules/game.js');
 ////SOCKET CONNECTION!
 
 let users = [];
-//one way to not make a game a global variable is to store it in mongoDB.
+//one way to not make a game a global letiable is to store it in mongoDB.
 let game = null;
 
 io.on('connection', (client) => {
