@@ -21,4 +21,7 @@ let gameSchema = new mongoose.Schema({
   },
   attacking: Number,
   defending: Number,
-})
+});
+
+let Game = mongoose.model('Game', gameSchema);
+module.exports = Game;

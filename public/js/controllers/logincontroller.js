@@ -21,6 +21,7 @@ function LoginController($http, $state, User) {
       headers: {'Content-Type': 'application/json'}
     }).then( (data) => {
       if (data.data.success) {
+        console.log('user saved successfully');
         User.setCurrentUser(data.data.user);
         User.setLoginState(true);
         $http.defaults.headers.common.Authorization = data.data.token;

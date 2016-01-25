@@ -18,20 +18,23 @@ function User() {
       return currentUser;
     },
 
-    setUserForLogin: function(user) {
-      userForLogin = user;
-    },
-
-    getUserForLogin: function() {
-      return userForLogin;
-    },
-
     setLoginState: function(newState) {
       loginState = newState;
     },
 
     getLoginState: function() {
-      return loginState;
+      $http({
+        method: 'GET',
+        url: '/user/auth',
+        headers: {'Content-Type': 'application/json'}
+      }).then( (response) => {
+        if (response.status === 200) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      })
     }
   }
 }

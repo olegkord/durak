@@ -15,9 +15,16 @@ angular.module('durak',[
     .controller('LoginController', LoginController)
     .controller('SignupController', SignupController)
     .run(['$rootScope','$state','User', ($rootScope, $state, User) => {
+      $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
+        let userLoggedIn = User.getLoginState();
+
+        let isAuthenticationRequired = toState.data
+          && toState.data.requiresLogin
+          && !(userLoggedIn);
+
+        if (isAuthenticationRequired) {
+          event.preventDefault();
+          $state.go('login');
+        }
+      })
   }])
-    .run( ($rootScope, $templateCache) => {
-      $rootScope.$on('$viewContentLoaded', () => {
-        $templateCache.removeAll();
-      });
-    });
