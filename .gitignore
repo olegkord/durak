@@ -1,2 +1,4 @@
 node_modules/*
 public/test.js
+bundle.js
+bundle.js.map
