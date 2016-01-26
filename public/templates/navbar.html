@@ -1,8 +1,8 @@
-<div class="navbar">
+<div ng-controller="LoginController as navbar" class="navbar">
   <ul class="links-list">
-    <li>Home</li>
-    <li>Log In</li>
-    <li>Log Out</li>
-    <li>Sign Up</li>
+    <li ui-sref="home">Home</li>
+    <li ui-sref="home">Log In</li>
+    <li ng-click="navbar.logOutUser()">Log Out</li>
+    <li ui-sref="signup">Sign Up</li>
   </ul>
 </div>

@@ -18,15 +18,12 @@ angular.module('durak',[
     .controller('SignupController', SignupController)
     .run(['$rootScope','$state','User', ($rootScope, $state, User) => {
       $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
-        User.getLoginState( (response) => {
-          let isAuthenticationRequired = toState.data
-            && toState.data.requiresLogin
-            && !(response);
-
-            if (isAuthenticationRequired) {
-              event.preventDefault();
-              $state.go('home');
-            }
-         })
+        User.getLoginState( (res) => {
+          console.log(res);
+          if (!res.data.success && toState.data.requiresLogin) {
+            alert('You need to be logged in to go there!');
+            $state.go('home');
+          }
+        })
       })
   }])

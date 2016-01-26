@@ -19,6 +19,7 @@ function User($http) {
     },
 
     getLoginState: function(callback) {
+      console.log('ping server');
       $http({
         method: 'GET',
         url: '/user/auth',

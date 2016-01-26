@@ -15,22 +15,23 @@
   font-weight: bold;
 }
 
-<style>
-  .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
 
-  .links-list li {
-    display: inline-block;
-    width: 60px
-  }
-</style>
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links-list li {
+  display: inline-block;
+  width: 60px
+}
+
 
 header {
-  height: 100px;
+  height: 50px;
 }
+
 button {
   width: 120px;
   height: 20px;

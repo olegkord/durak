@@ -79,7 +79,10 @@ router.route('/new')
       });
     }
     else {
-      return res.status(403).json({message: 'Token absent, permission denied'})
+      return res.json({
+        success: false,
+        message: 'Token absent, permission denied'
+      })
     }
   });
 
