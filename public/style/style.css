@@ -15,6 +15,19 @@
   font-weight: bold;
 }
 
+<style>
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .links-list li {
+    display: inline-block;
+    width: 60px
+  }
+</style>
+
 header {
   height: 100px;
 }

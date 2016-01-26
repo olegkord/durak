@@ -6,10 +6,6 @@ function User($http) {
   let loginState = false;
 
   return {
-    verifyToken: function() {
-
-    },
-
     setCurrentUser: function(user) {
       currentUser = user;
     },
