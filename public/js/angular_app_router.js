@@ -15,6 +15,8 @@ module.exports = function($stateProvider, $urlRouterProvider, $httpProvider) {
     .state('profile', {
       url: '/profile',
       templateUrl: './templates/profile.html',
-      
+      data: {
+        requiresLogin: true
+      }
     })
 }

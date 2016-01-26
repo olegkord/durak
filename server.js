@@ -10,10 +10,10 @@ let bodyParser = require('body-parser');
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 
+let mongoose = require('mongoose');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/durak')
 
 app.set('port', process.env.PORT || 3000);
-
-
 
 (function() {
 
@@ -34,6 +34,11 @@ app.set('port', process.env.PORT || 3000);
 })();
 
 app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 let user = require('./controllers/usersController');
 app.use('/user', user);

@@ -1,6 +1,6 @@
 'use strict';
 
-function LoginController($http, $state, User) {
+function LoginController($http, $state) {
   console.log('loginctrl');
   let self = this;
 

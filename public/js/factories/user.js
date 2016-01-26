@@ -1,6 +1,6 @@
 'use strict';
 
-function User() {
+function User($http) {
 
   let currentUser = {};
   let loginState = false;

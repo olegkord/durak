@@ -5,8 +5,8 @@ let mongoose = require('mongoose');
 //let bcrypt = require('bcrypt');
 
 let userSchema = new mongoose.Schema({
-  userName: String,
-  //password: String,
+  email: String,
+  password: String,
 
   games: [{
     type: mongoose.Schema.ObjectId,
