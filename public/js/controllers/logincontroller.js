@@ -11,8 +11,6 @@ function LoginController($http, $state, User) {
     password: ''
   }
 
-  self.errorMsg = '';
-
   self.logIn = function(user) {
     $http({
       method: 'POST',
@@ -31,6 +29,13 @@ function LoginController($http, $state, User) {
         $state.go('home');
       }
     })
+  }
+
+  self.logOut() = function() {
+    User.setCurrentUser({});
+    User.setLoginState(false);
+    $http.defaults.headers.common.Authorization = null;
+    $state.go('home');
   }
 
 }
