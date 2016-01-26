@@ -1,6 +1,6 @@
 'use strict';
 
-function LoginController($http, $state) {
+function LoginController($http, $state, User) {
   console.log('loginctrl');
   let self = this;
 
@@ -21,7 +21,6 @@ function LoginController($http, $state) {
       headers: {'Content-Type': 'application/json'}
     }).then( (data) => {
       if (data.data.success) {
-        console.log('user saved successfully');
         User.setCurrentUser(data.data.user);
         User.setLoginState(true);
         $http.defaults.headers.common.Authorization = data.data.token;
@@ -29,7 +28,7 @@ function LoginController($http, $state) {
       }
       else {
         //capture the errors if login failed, display them on the form
-        $state.go('login');
+        $state.go('home');
       }
     })
   }

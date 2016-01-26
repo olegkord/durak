@@ -11,6 +11,7 @@ const secret = process.env.SECRET;
 router.route('/login')
   .post( (req, res) => {
     let userParams = req.body;
+    debugger;
     User.findOne({email: userParams.email}, (error, user) => {
       if (error) {
         throw error;
@@ -40,27 +41,27 @@ router.route('/login')
     });
   });
 
-  router.route('/new')
-    .post( (req, res) => {
-      console.log('hit new user route');
-      debugger;
-      let user = new User(req.body);
-      user.save( (error) => {
+router.route('/new')
+  .post( (req, res) => {
+    //create new user route
 
-        if (error) {
-          res.json({
-            message: 'Could not create new user because of: ' + error,
-            success: false
-          });
-        }
-        else {
-          res.json({
-            user: user,
-            success: true
-          });
-        }
-      });
-    })
+    let user = new User(req.body);
+
+    user.save( (error) => {
+      if (error) {
+        res.json({
+          message: 'Could not create new user because of:' + error,
+          success: false
+        });
+      }
+      else {
+        res.json({
+          user: user,
+          success: true
+        });
+      }
+    });
+  })
 
   //middleware for token authentication
 

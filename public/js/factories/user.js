@@ -22,19 +22,14 @@ function User($http) {
       loginState = newState;
     },
 
-    getLoginState: function() {
+    getLoginState: function(callback) {
       $http({
         method: 'GET',
         url: '/user/auth',
         headers: {'Content-Type': 'application/json'}
       }).then( (response) => {
-        if (response.status === 200) {
-          return true;
-        }
-        else {
-          return false;
-        }
-      })
+        callback(response);
+      });
     }
   }
 }
