@@ -31,7 +31,7 @@ function LoginController($http, $state, User) {
     })
   }
 
-  self.logOut() = function() {
+  self.logOut = function() {
     User.setCurrentUser({});
     User.setLoginState(false);
     $http.defaults.headers.common.Authorization = null;
