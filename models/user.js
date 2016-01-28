@@ -16,14 +16,12 @@ let userSchema = new mongoose.Schema({
 //middleware
 userSchema.pre('save', function(next) {
   let user = this;
-  debugger;
   if(!user.isModified('password')) return next();
 
   bcrypt.genSalt(5, (err,salt) => {
     if (err) return next(err);
     bcrypt.hash(user.password, salt, (error,hash) => {
       if(error) return next(error);
-
       user.password = hash;
       next();
     });
