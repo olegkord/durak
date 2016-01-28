@@ -15,13 +15,14 @@ function Socket($rootScope) {
     },
     emit: function(eventName, data, callback) {
       socket.emit(eventName, data, () => {
-      let args = arguments;
-      $rootScope.$apply( () => {
-        if (callback) {
-          callback.apply(socket, args);
-        }
+        let args = arguments;
+        $rootScope.$apply( () => {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
       });
-    });
+    }
   }
 }
 
