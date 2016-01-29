@@ -1,6 +1,10 @@
 @import 'normalize.css';
 @import 'cards.css';
 
+div {
+  border: solid black 2px;
+}
+
 .css-form input.ng-invalid.ng-touched {
     background-color: #FA787E;
   }

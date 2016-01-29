@@ -1,12 +1,20 @@
 <div ng-controller="ProfileController as profile">
-  <div class="sidebar-left">
-    <br>Logged in as:
-    {{profile.currentUser.email}}
+  <div ng-switch="profile.currentUser.games.length">
+    <div class="sidebar-left">
+      <br>Logged in as:
+      {{profile.currentUser.email}}
 
-    <br>You have {{profile.currentUser.games.length}} games
+      <br>You have {{profile.currentUser.games.length}} games
 
-    <br>Wins: 0
+      <br>Wins: 0
 
-    <br>Losses: 0
+      <br>Losses: 0
+    </div>
+    <div ng-switch-when="0">
+      -- You Have no games --
+    </div>
+    <div ng-switch-default>
+      -- You Have some games --
+    </div>
   </div>
 </div>
